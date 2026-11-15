@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Румынский с нуля</title>
+<title>Learn like a star</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
@@ -136,7 +136,9 @@ table.conj,table.read{width:100%;border-collapse:collapse}
 #hero[hidden]{display:none}
 .hero-in{max-width:1200px;margin:0 auto;padding:28px 20px 40px;display:grid;grid-template-columns:1fr;gap:22px;min-height:min(92vh,860px);align-content:end}
 .brand{position:absolute;top:18px;left:20px;font:500 15px Manrope,system-ui,sans-serif;letter-spacing:.02em;color:#F4F2EC;z-index:2}
-.crane{position:absolute;top:56px;left:50%;transform:translateX(-50%);width:min(78vw,520px);aspect-ratio:1;object-fit:cover;border-radius:4px;box-shadow:0 30px 60px -20px rgba(40,30,30,.45)}
+.crane-wrap{position:absolute;top:28px;left:50%;transform:translateX(-50%);width:min(78vw,520px);margin:0}
+.crane{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;box-shadow:0 30px 60px -20px rgba(40,30,30,.45)}
+.crane-wrap figcaption{text-align:center;margin-top:16px;font:400 20px Manrope,system-ui,sans-serif;letter-spacing:.06em;color:#F6F4EF}
 .hero-title{position:relative;z-index:1;font:300 clamp(64px,13vw,168px)/.92 Manrope,system-ui,sans-serif;letter-spacing:-.045em;margin:0;color:#EEECE6;mix-blend-mode:normal;text-shadow:0 2px 30px rgba(60,60,60,.25)}
 .hero-side{position:relative;z-index:1;max-width:420px}
 .hero-side p{font:400 18px/1.45 Manrope,system-ui,sans-serif;margin:0 0 18px;color:#F6F4EF}
@@ -145,12 +147,43 @@ table.conj,table.read{width:100%;border-collapse:collapse}
 .pill:focus-visible{outline:3px solid #D9A066;outline-offset:3px}
 @media (min-width:860px){
   .hero-in{grid-template-columns:1.3fr 1fr;align-items:end;padding:40px 48px 56px}
-  .crane{top:40px;left:58%;width:min(46vw,560px)}
+  .crane-wrap{top:40px;left:60%;width:min(42vw,520px)}
+  .hero-in{min-height:min(96vh,900px)}
   .brand{left:48px;top:26px}
   .hero-side{justify-self:end;margin-bottom:12px}
 }
-@media (max-width:859px){.hero-in{padding-top:calc(min(78vw,520px) + 40px)}.hero-title{margin-top:-90px}}
+@media (max-width:859px){.hero-in{padding-top:calc(min(78vw,520px) + 90px);min-height:0}}
 .lsec{margin-top:40px}
+#topnav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 20px;background:rgba(243,234,219,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+#topnav[hidden]{display:none}
+.nav-brand{all:unset;cursor:pointer;font:500 16px Manrope,system-ui,sans-serif;color:var(--ink);min-height:44px;display:flex;align-items:center}
+.nav-link{appearance:none;border:1.5px solid var(--rust);background:transparent;color:var(--rust);border-radius:999px;min-height:40px;padding:6px 16px;font:500 15px 'Golos Text',system-ui,sans-serif;cursor:pointer}
+.nav-link:hover{background:var(--rust);color:var(--paper)}
+.nav-brand:focus-visible,.nav-link:focus-visible{outline:3px solid #D9A066;outline-offset:2px}
+.llist{list-style:none;margin:0;padding:0;max-width:760px}
+.lrow{all:unset;box-sizing:border-box;display:grid;grid-template-columns:auto 1fr auto;column-gap:16px;align-items:center;width:100%;padding:16px 0;border-top:1px solid var(--line);cursor:pointer}
+.lrow:focus-visible{outline:3px solid #D9A066;outline-offset:2px}
+.lrow .lbody{display:flex;flex-direction:column}
+.lrow .n{color:var(--muted);font-size:14px}
+.lrow .t{font:600 24px/1.2 var(--display);color:var(--ink)}
+.lrow .m{color:var(--muted);font-size:15px;margin-top:2px}
+.lrow .arr{color:var(--rust);font-size:20px}
+.lrow:hover .t{color:var(--rust)}
+.lrow .pbar{grid-column:2/4;height:2px;background:var(--line);margin-top:12px}
+.lrow .pbar i{display:block;height:100%;background:var(--rust)}
+h2.part{display:flex;align-items:center;gap:12px;margin:40px 0 14px}
+.pn{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--rust);color:var(--rust);font:600 20px var(--display)}
+.vgroup+.vgroup{margin-top:26px}
+.vhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.vhead h3{margin:0}
+.small-btn{min-height:40px;padding:6px 14px;font-size:15px}
+.vlist{list-style:none;margin:0;padding:0}
+.vlist li{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.vro{font:600 21px var(--display);grid-column:1}
+.vtr{color:var(--muted);font-size:14px;grid-column:1}
+.vru{grid-column:1;font-size:16px}
+.vlist .speak{grid-column:2;grid-row:1/4}
+@media (min-width:640px){.vlist li{grid-template-columns:1.1fr .8fr 1.2fr auto}.vro,.vtr,.vru{grid-column:auto}.vlist .speak{grid-column:4;grid-row:auto}}
 .lsec h2{margin:0 0 14px}
 .lgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));column-gap:24px}
 .ltile{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:2px 10px;width:100%;padding:12px 0 14px;border-top:1px solid var(--line);cursor:pointer;min-height:96px;align-content:start}
@@ -166,6 +199,7 @@ table.conj,table.read{width:100%;border-collapse:collapse}
 </style>
 </head>
 <body>
+<nav id="topnav" hidden><button id="navHome" class="nav-brand">Learn like a star</button><button id="navLessons" class="nav-link">Все уроки</button></nav>
 <div id="hero"></div>
 <div class="band" aria-hidden="true"></div>
 <main id="app"></main>
@@ -185,7 +219,7 @@ const UNIT1 = {title:"Урок 1. Алфавит и приветствия", par
   {ro:"Ciao", ru:"Пока, привет", tr:"ча́о", ex:"Ciao, pe mâine!", exRu:"Пока, до завтра!"}
  ]},
  {id:"u1-pronume", title:"Личные местоимения", words:[
-  {ro:"eu", ru:"я", tr:"еу", ex:"Eu sunt din Moldova.", exRu:"Я из Молдовы."},
+  {ro:"eu", ru:"я", tr:"йеу", ex:"Eu sunt din Moldova.", exRu:"Я из Молдовы."},
   {ro:"tu", ru:"ты", tr:"ту", ex:"Tu ești din Rusia?", exRu:"Ты из России?"},
   {ro:"el", ru:"он", tr:"йел", ex:"El este român.", exRu:"Он румын."},
   {ro:"ea", ru:"она", tr:"я", ex:"Ea este din Ucraina.", exRu:"Она из Украины."},
@@ -200,16 +234,17 @@ const UNIT1 = {title:"Урок 1. Алфавит и приветствия", par
   {ro:"băiat", ru:"мальчик", tr:"бэя́т", g:"м. р.", ex:"Băiatul este din Moldova.", exRu:"Мальчик из Молдовы."},
   {ro:"fată", ru:"девочка", tr:"фа́тэ", g:"ж. р.", ex:"Fata se numește Maria.", exRu:"Девочку зовут Мария."},
   {ro:"bărbat", ru:"мужчина", tr:"бэрба́т", g:"м. р.", ex:"Bărbatul este rus.", exRu:"Мужчина русский."},
-  {ro:"femeie", ru:"женщина", tr:"феме́йе", g:"ж. р.", ex:"Femeia este din Rusia.", exRu:"Женщина из России."}
+  {ro:"femeie", ru:"женщина", tr:"феме́йе", g:"ж. р.", ex:"Femeia este din Rusia.", exRu:"Женщина из России."},
+  {ro:"doamnă", ru:"госпожа", tr:"доа́мнэ", g:"ж. р.", ex:"Doamna Popescu este din Moldova.", exRu:"Госпожа Попеску из Молдовы."}
  ]},
  {id:"u1-nationalitati", title:"Национальности", words:[
   {ro:"naționalitate", ru:"национальность", tr:"нацьонали́тате", g:"ж. р.", ex:"Care este naționalitatea dumneavoastră?", exRu:"Какая у вас национальность?"},
   {ro:"român", ru:"румын", tr:"ромы́н", ex:"Ion este român.", exRu:"Ион румын."},
-  {ro:"englez", ru:"англичанин", tr:"енгле́з", ex:"John este englez.", exRu:"Джон англичанин."},
+  {ro:"englez", ru:"англичанин", tr:"энгле́з", ex:"John este englez.", exRu:"Джон англичанин."},
   {ro:"rus", ru:"русский", tr:"рус", ex:"Eu sunt rus.", exRu:"Я русский."},
   {ro:"ucrainean", ru:"украинец", tr:"украиня́н", ex:"El este ucrainean.", exRu:"Он украинец."}
  ]},
- {id:"u1-altele", title:"Маленькие слова", words:[
+ {id:"u1-altele", title:"Другие слова", words:[
   {ro:"dumneavoastră", ru:"Вы (вежливо), сокращённо Dvs.", tr:"думнявоа́стрэ", ex:"Dumneavoastră sunteți din Moldova?", exRu:"Вы из Молдовы?"},
   {ro:"în", ru:"в", tr:"ын", ex:"Eu sunt în Chișinău.", exRu:"Я в Кишинёве."},
   {ro:"din", ru:"из", tr:"дин", ex:"Ea este din Rusia.", exRu:"Она из России."},
@@ -219,7 +254,7 @@ const UNIT1 = {title:"Урок 1. Алфавит и приветствия", par
   {ro:"nu", ru:"нет", tr:"ну", ex:"Nu, nu sunt român.", exRu:"Нет, я не румын."}
  ]},
  {id:"u1-afi", title:"Глагол a fi (быть)", words:[
-  {ro:"eu sunt", ru:"я есть", tr:"еу сунт", ex:"Eu sunt din Moldova.", exRu:"Я из Молдовы.", gap:"Eu ___ din Moldova.", ans:"sunt"},
+  {ro:"eu sunt", ru:"я есть", tr:"йеу сунт", ex:"Eu sunt din Moldova.", exRu:"Я из Молдовы.", gap:"Eu ___ din Moldova.", ans:"sunt"},
   {ro:"tu ești", ru:"ты есть", tr:"ту йешть", ex:"Tu ești rus.", exRu:"Ты русский.", gap:"Tu ___ rus.", ans:"ești"},
   {ro:"el este", ru:"он есть", tr:"йел йе́сте", ex:"El este român.", exRu:"Он румын.", gap:"El ___ român.", ans:"este"},
   {ro:"ea este", ru:"она есть", tr:"я йе́сте", ex:"Ea este din Rusia.", exRu:"Она из России.", gap:"Ea ___ din Rusia.", ans:"este"},
@@ -228,7 +263,7 @@ const UNIT1 = {title:"Урок 1. Алфавит и приветствия", par
   {ro:"ei sunt", ru:"они есть", tr:"йей сунт", ex:"Ei sunt ucraineni.", exRu:"Они украинцы.", gap:"Ei ___ ucraineni.", ans:"sunt"}
  ]},
  {id:"u1-numi", title:"Глагол a se numi (зваться)", words:[
-  {ro:"eu mă numesc", ru:"я называюсь (меня зовут)", tr:"еу мэ нуме́ск", ex:"Eu mă numesc Ana.", exRu:"Меня зовут Анна.", gap:"Eu ___ Ana.", ans:"mă numesc"},
+  {ro:"eu mă numesc", ru:"я называюсь (меня зовут)", tr:"йеу мэ нуме́ск", ex:"Eu mă numesc Ana.", exRu:"Меня зовут Анна.", gap:"Eu ___ Ana.", ans:"mă numesc"},
   {ro:"tu te numești", ru:"ты называешься (тебя зовут)", tr:"ту те нуме́шть", ex:"Cum te numești?", exRu:"Как тебя зовут?", gap:"Tu ___ Ion?", ans:"te numești"},
   {ro:"el se numește", ru:"он называется (его зовут)", tr:"йел се нуме́ште", ex:"El se numește Ion.", exRu:"Его зовут Ион.", gap:"El ___ Ion.", ans:"se numește"},
   {ro:"ea se numește", ru:"она называется (её зовут)", tr:"я се нуме́ште", ex:"Ea se numește Maria.", exRu:"Её зовут Мария.", gap:"Ea ___ Maria.", ans:"se numește"},
@@ -238,6 +273,73 @@ const UNIT1 = {title:"Урок 1. Алфавит и приветствия", par
  ]}
 ]};
 
+const UNIT2 = [
+ {id:"u2-prof", title:"Профессии", words:[
+  {ro:"actor", ru:"актёр", tr:"акто́р", g:"м. р.", ex:"El este actor.", exRu:"Он актёр."},
+  {ro:"arhitect", ru:"архитектор", tr:"архите́кт", g:"м. р.", ex:"Ion este arhitect.", exRu:"Ион архитектор."},
+  {ro:"contabil", ru:"бухгалтер", tr:"конта́бил", g:"м. р.", ex:"El este contabil.", exRu:"Он бухгалтер."},
+  {ro:"economist", ru:"экономист", tr:"экономи́ст", g:"м. р.", ex:"Sunt economist.", exRu:"Я экономист."},
+  {ro:"educatoare", ru:"воспитательница", tr:"эдукатоа́ре", g:"ж. р.", ex:"Educatoarea lucrează la grădiniță.", exRu:"Воспитательница работает в детском саду."},
+  {ro:"funcționar", ru:"чиновник, служащий", tr:"фунцьона́р", g:"м. р.", ex:"Tatăl meu este funcționar.", exRu:"Мой отец чиновник."},
+  {ro:"inginer", ru:"инженер", tr:"инджине́р", g:"м. р.", ex:"Fratele meu este inginer.", exRu:"Мой брат инженер."},
+  {ro:"jurist", ru:"юрист", tr:"жури́ст", g:"м. р.", ex:"Ea lucrează ca jurist.", exRu:"Она работает юристом."},
+  {ro:"manager", ru:"менеджер", tr:"ме́неджер", g:"м. р.", ex:"Ea este manager.", exRu:"Она менеджер."},
+  {ro:"medic", ru:"врач", tr:"ме́дик", g:"м. р.", ex:"Medicul este la spital.", exRu:"Врач в больнице."},
+  {ro:"ministru", ru:"министр", tr:"мини́стру", g:"м. р.", ex:"Ministrul este în birou.", exRu:"Министр в кабинете."},
+  {ro:"președinte", ru:"президент", tr:"прешеди́нте", g:"м. р.", ex:"Președintele este în Chișinău.", exRu:"Президент в Кишинёве."},
+  {ro:"profesor", ru:"преподаватель, профессор (м.)", tr:"професо́р", g:"м. р.", ex:"Sunt profesor.", exRu:"Я преподаватель."},
+  {ro:"profesoară", ru:"преподавательница, профессор (ж.)", tr:"професоа́рэ", g:"ж. р.", ex:"Mama mea este profesoară.", exRu:"Моя мама преподаватель."},
+  {ro:"sportiv", ru:"спортсмен, спортивный", tr:"спорти́в", g:"м. р.", ex:"Fratele meu este sportiv.", exRu:"Мой брат спортсмен."},
+  {ro:"șofer", ru:"водитель", tr:"шофе́р", g:"м. р.", ex:"Șoferul este aici.", exRu:"Водитель здесь."}
+ ]},
+ {id:"u2-locuri", title:"Где работают", words:[
+  {ro:"birou", ru:"офис", tr:"биро́у", g:"ср. р.", ex:"Lucrez într-un birou.", exRu:"Я работаю в офисе."},
+  {ro:"magazin", ru:"магазин", tr:"магази́н", g:"ср. р.", ex:"Magazinul este aproape.", exRu:"Магазин рядом."},
+  {ro:"grădiniță", ru:"детский сад", tr:"грэдини́цэ", g:"ж. р.", ex:"Copilul este la grădiniță.", exRu:"Ребёнок в детском саду."},
+  {ro:"școală", ru:"школа", tr:"шкоа́лэ", g:"ж. р.", ex:"Școala este mare.", exRu:"Школа большая."},
+  {ro:"teatru", ru:"театр", tr:"теа́тру", g:"ср. р.", ex:"Actorul lucrează la teatru.", exRu:"Актёр работает в театре."},
+  {ro:"grădină", ru:"сад", tr:"грэди́нэ", g:"ж. р.", ex:"Grădina este frumoasă.", exRu:"Сад красивый."}
+ ]},
+ {id:"u2-intrebari", title:"Вопросы", words:[
+  {ro:"ce", ru:"что, какой, как", tr:"че", ex:"Ce faci?", exRu:"Что делаешь?"},
+  {ro:"cum", ru:"как", tr:"кум", ex:"Cum te numești?", exRu:"Как тебя зовут?"},
+  {ro:"unde", ru:"где", tr:"у́нде", ex:"Unde lucrezi?", exRu:"Где ты работаешь?"},
+  {ro:"țară", ru:"страна", tr:"ца́рэ", g:"ж. р.", ex:"Din ce țară ești?", exRu:"Из какой ты страны?"},
+  {ro:"oraș", ru:"город", tr:"ора́ш", g:"ср. р.", ex:"Din ce oraș ești?", exRu:"Из какого ты города?"}
+ ]},
+ {id:"u2-ce", title:"Вопрос ce", words:[
+  {ro:"Ce faci?", ru:"Что делаешь? Как дела?", tr:"че фач", ex:"Salut! Ce faci?", exRu:"Привет! Как дела?"},
+  {ro:"Ce?", ru:"Что? (просторечие)", tr:"че", ex:"Ce? Nu înțeleg.", exRu:"Что? Не понимаю."},
+  {ro:"Din ce țară ești?", ru:"Из какой ты страны?", tr:"дин че ца́рэ йешть", ex:"Din ce țară ești? Sunt din Moldova.", exRu:"Из какой ты страны? Я из Молдовы."},
+  {ro:"Din ce oraș ești?", ru:"Из какого ты города?", tr:"дин че ора́ш йешть", ex:"Din ce oraș ești? Sunt din Chișinău.", exRu:"Из какого ты города? Я из Кишинёва."},
+  {ro:"Ce frumos!", ru:"Как красиво!", tr:"че фрумо́с", ex:"Ce frumos este parcul!", exRu:"Какой красивый парк!"}
+ ]},
+ {id:"u2-munca", title:"Кем ты работаешь?", words:[
+  {ro:"Ce lucrezi?", ru:"Кем ты работаешь?", tr:"че лукре́зь", ex:"Ce lucrezi? Sunt inginer.", exRu:"Кем ты работаешь? Я инженер."},
+  {ro:"Ce profesie ai?", ru:"Какая у тебя профессия?", tr:"че профе́сие ай", ex:"Ce profesie ai? Sunt medic.", exRu:"Какая у тебя профессия? Я врач."},
+  {ro:"Cu ce te ocupi?", ru:"Чем ты занимаешься?", tr:"ку че те оку́пь", ex:"Cu ce te ocupi? Mă ocup cu IT.", exRu:"Чем ты занимаешься? Я занимаюсь IT."},
+  {ro:"Lucrez ca…", ru:"Я работаю (кем-то)…", tr:"лукре́з ка", ex:"Lucrez ca IT specialist.", exRu:"Я работаю IT-специалистом."},
+  {ro:"Mă ocup cu…", ru:"Я занимаюсь (чем-то)…", tr:"мэ оку́п ку", ex:"Mă ocup cu IT.", exRu:"Я занимаюсь IT."},
+  {ro:"Unde lucrezi?", ru:"Где ты работаешь?", tr:"у́нде лукре́зь", ex:"Unde lucrezi? Lucrez la școală.", exRu:"Где ты работаешь? Я работаю в школе."},
+  {ro:"În ce țară lucrezi?", ru:"В какой стране ты работаешь?", tr:"ын че ца́рэ лукре́зь", ex:"În ce țară lucrezi? Lucrez în Moldova.", exRu:"В какой стране ты работаешь? Я работаю в Молдове."}
+ ]},
+ {id:"u2-art", title:"Артикли un и o", words:[
+  {ro:"un profesor", ru:"(один) преподаватель", tr:"ун професо́р", ex:"Sunt un profesor.", exRu:"Я преподаватель.", gap:"Sunt ___ profesor.", ans:"un"},
+  {ro:"o profesoară", ru:"(одна) преподавательница", tr:"о професоа́рэ", ex:"Sunt o profesoară.", exRu:"Я преподавательница.", gap:"Sunt ___ profesoară.", ans:"o"},
+  {ro:"un șofer", ru:"(один) водитель", tr:"ун шофе́р", ex:"El este un șofer bun.", exRu:"Он хороший водитель.", gap:"El este ___ șofer bun.", ans:"un"},
+  {ro:"o educatoare", ru:"(одна) воспитательница", tr:"о эдукатоа́ре", ex:"Ea este o educatoare.", exRu:"Она воспитательница.", gap:"Ea este ___ educatoare.", ans:"o"},
+  {ro:"un birou", ru:"(один) офис", tr:"ун биро́у", ex:"Acesta este un birou.", exRu:"Это офис.", gap:"Acesta este ___ birou.", ans:"un"},
+  {ro:"o școală", ru:"(одна) школа", tr:"о шкоа́лэ", ex:"Aceasta este o școală.", exRu:"Это школа.", gap:"Aceasta este ___ școală.", ans:"o"}
+ ]},
+ {id:"u2-unde", title:"Unde: где и откуда", words:[
+  {ro:"De unde ești?", ru:"Ты откуда?", tr:"де у́нде йешть", ex:"Tu de unde ești?", exRu:"Ты откуда?", gap:"Tu de ___ ești?", ans:"unde"},
+  {ro:"Sunt din Rusia.", ru:"Я из России.", tr:"сунт дин ру́сия", ex:"Eu sunt din Rusia.", exRu:"Я из России.", gap:"Eu sunt ___ Rusia.", ans:"din"},
+  {ro:"Unde ești?", ru:"Ты где?", tr:"у́нде йешть", ex:"Unde ești acum?", exRu:"Ты где сейчас?", gap:"___ ești acum?", ans:"Unde"},
+  {ro:"Sunt în Rusia.", ru:"Я в России.", tr:"сунт ын ру́сия", ex:"Acum sunt în Rusia.", exRu:"Сейчас я в России.", gap:"Acum sunt ___ Rusia.", ans:"în"},
+  {ro:"Unde este ea?", ru:"Где она?", tr:"у́нде йе́сте я", ex:"Unde este ea? Ea este în Rusia.", exRu:"Где она? Она в России.", gap:"Ea este ___ Rusia.", ans:"în"},
+  {ro:"Unde sunt ei?", ru:"Где они?", tr:"у́нде сунт йей", ex:"Unde sunt ei? Ei sunt în Moldova.", exRu:"Где они? Они в Молдове.", gap:"Ei sunt ___ Moldova.", ans:"în"}
+ ]}
+];
 const MORE = [
  {id:"politete", title:"Вежливость", words:[
   {ro:"Mulțumesc", ru:"Спасибо", tr:"мулцуме́ск", ex:"Mulțumesc frumos!", exRu:"Большое спасибо!"},
@@ -278,7 +380,10 @@ const MORE = [
   {ro:"fiu", ru:"сын", tr:"фиу", g:"м. р.", ex:"Fiul meu are zece ani.", exRu:"Моему сыну десять лет."},
   {ro:"fiică", ru:"дочь", tr:"фи́икэ", g:"ж. р.", ex:"Fiica mea învață română.", exRu:"Моя дочь учит румынский."},
   {ro:"bunică", ru:"бабушка", tr:"буни́кэ", g:"ж. р.", ex:"Bunica face plăcinte.", exRu:"Бабушка печёт пироги."},
-  {ro:"bunic", ru:"дедушка", tr:"буни́к", g:"м. р.", ex:"Bunicul citește ziarul.", exRu:"Дедушка читает газету."}
+  {ro:"bunic", ru:"дедушка", tr:"буни́к", g:"м. р.", ex:"Bunicul citește ziarul.", exRu:"Дедушка читает газету."},
+  {ro:"copil", ru:"ребёнок", tr:"копи́л", g:"м. р.", ex:"Copilul este mic.", exRu:"Ребёнок маленький."},
+  {ro:"soț", ru:"муж", tr:"соц", g:"м. р.", ex:"Soțul meu este medic.", exRu:"Мой муж врач."},
+  {ro:"soție", ru:"жена", tr:"соци́е", g:"ж. р.", ex:"Soția mea este profesoară.", exRu:"Моя жена преподаватель."}
  ]},
  {id:"mancare", title:"Еда и напитки", words:[
   {ro:"pâine", ru:"хлеб", tr:"пы́йне", g:"ж. р.", ex:"Pâinea este proaspătă.", exRu:"Хлеб свежий."},
@@ -293,15 +398,23 @@ const MORE = [
  {id:"oras", title:"Город", words:[
   {ro:"casă", ru:"дом", tr:"ка́сэ", g:"ж. р.", ex:"Casa mea este mică.", exRu:"Мой дом маленький."},
   {ro:"stradă", ru:"улица", tr:"стра́дэ", g:"ж. р.", ex:"Strada este lungă.", exRu:"Улица длинная."},
-  {ro:"magazin", ru:"магазин", tr:"магази́н", g:"ср. р.", ex:"Magazinul este închis.", exRu:"Магазин закрыт."},
   {ro:"gară", ru:"вокзал", tr:"га́рэ", g:"ж. р.", ex:"Gara este aproape.", exRu:"Вокзал близко."},
   {ro:"farmacie", ru:"аптека", tr:"фармачи́е", g:"ж. р.", ex:"Unde este farmacia?", exRu:"Где аптека?"},
   {ro:"spital", ru:"больница", tr:"спита́л", g:"ср. р.", ex:"Spitalul este mare.", exRu:"Больница большая."},
-  {ro:"școală", ru:"школа", tr:"шко́алэ", g:"ж. р.", ex:"Copiii merg la școală.", exRu:"Дети идут в школу."},
-  {ro:"piață", ru:"рынок", tr:"пя́цэ", g:"ж. р.", ex:"Merg la piață.", exRu:"Я иду на рынок."}
+  {ro:"piață", ru:"рынок", tr:"пя́цэ", g:"ж. р.", ex:"Merg la piață.", exRu:"Я иду на рынок."},
+  {ro:"bancă", ru:"банк", tr:"ба́нкэ", g:"ж. р.", ex:"Banca este închisă.", exRu:"Банк закрыт."},
+  {ro:"parc", ru:"парк", tr:"парк", g:"ср. р.", ex:"Parcul este frumos.", exRu:"Парк красивый."}
  ]}
 ];
-const LESSONS = UNIT1.parts.concat(MORE);
+const LESSONS = UNIT1.parts.concat(UNIT2, MORE);
+const COURSE = [
+ {n:1, title:"Алфавит и приветствия", alphabet:true, vocab:["u1-salut","u1-pronume","u1-oameni","u1-nationalitati","u1-altele"], grammar:["u1-afi","u1-numi"]},
+ {n:2, title:"Профессии. Кем ты работаешь?", vocab:["u2-prof","u2-locuri","u2-intrebari"], grammar:["u2-ce","u2-munca","u2-art","u2-unde"]},
+ {n:3, title:"Вежливость, фразы и числа", vocab:["politete","fraze","numere"]},
+ {n:4, title:"Семья, еда и город", vocab:["familie","mancare","oras"]}
+]
+const grp = id => LESSONS.find(l => l.id===id);
+const courseWords = c => c.vocab.concat(c.grammar||[]).flatMap(id => grp(id).words);
 
 const ALPHABET = "A Ă Â B C D E F G H I Î J K L M N O P Q R S Ș T Ț U V W X Y Z".split(" ");
 const READING = [
@@ -345,7 +458,7 @@ function speak(text){
   if (!synth) { toast("В этом браузере нет озвучки. Ориентируйтесь на транскрипцию."); return; }
   loadVoices();
   if (!voice) { toast("В браузере не найден румынский голос. Ориентируйтесь на транскрипцию."); return; }
-  try { synth.cancel(); const u = new SpeechSynthesisUtterance(text.replace(/…/g,"")); u.voice = voice; u.lang = voice.lang; u.rate = 0.85; synth.speak(u); }
+  try { synth.cancel(); const u = new SpeechSynthesisUtterance(text.replace(/…/g,"")); u.voice = voice; u.lang = "ro-RO"; u.rate = 0.85; synth.speak(u); }
   catch(e) { toast("Не удалось включить озвучку."); }
 }
 const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
@@ -363,10 +476,14 @@ const strip = s => s.replace(/[ăâ]/g,"a").replace(/î/g,"i").replace(/ș/g,"s"
 /* ---------- Сессия ---------- */
 let S = null;
 
-function startLesson(id){
-  const l = LESSONS.find(x => x.id===id);
-  S = {mode:"lesson", lesson:l, words:l.words, phase:"intro", i:0};
-  render();
+function startLesson(id, back){
+  const l = grp(id);
+  S = {mode:"lesson", lesson:l, words:l.words, phase:"intro", i:0, back};
+  render(); window.scrollTo(0,0);
+}
+function startWords(words, back){
+  S = {mode:"lesson", words, phase:"intro", i:0, back};
+  render(); window.scrollTo(0,0);
 }
 function startReview(){
   const due = shuffle(ALL.filter(isDue)).slice(0,15);
@@ -375,7 +492,7 @@ function startReview(){
   buildQueue(); render();
 }
 function pickType(w, avoid){
-  let types = ["ro2ru","ru2ro","type"]; if (voiceOK()) types.push("listen");
+  let types = ["ro2ru","ru2ro"]; if (voiceOK()) types.push("listen");
   if (w && w.gap) types.push("gap","gap");
   if (avoid && types.length>1) types = types.filter(t => t!==avoid);
   return types[Math.floor(Math.random()*types.length)];
@@ -395,14 +512,15 @@ function options(w, field){
   for (const x of shuffle(poolFor(w))) { if (out.length>=4) break; if (!used.has(x[field])) { used.add(x[field]); out.push(x); } }
   return shuffle(out);
 }
-function exit(){ if (synth) try{synth.cancel();}catch(e){} S = null; render(); window.scrollTo(0,0); }
+function exit(){ if (synth) try{synth.cancel();}catch(e){} const b = S && S.back; S = b ? {phase:"lesson", n:b} : null; render(); window.scrollTo(0,0); }
 
 /* ---------- Экраны ---------- */
 function render(){
   const hero = document.getElementById("hero");
   hero.hidden = !!S; $app.classList.toggle("wide", !S);
+  document.getElementById("topnav").hidden = !S;
   if (!S) return renderHome();
-  if (S.phase==="theory") return renderTheory();
+  if (S.phase==="lesson") return renderLesson();
   if (S.phase==="intro") return renderIntro();
   if (S.phase==="ex") return renderEx();
   return renderDone();
@@ -415,17 +533,11 @@ function renderHome(){
   const st = streakNow();
   let reviewBlock = "";
   if (due) reviewBlock = `<div class="review"><p>Пора повторить: <b>${due}</b> ${plural(due,"слово","слова","слов")}</p><button class="btn btn-primary" id="rev">Повторить</button></div>`;
-  else if (started) reviewBlock = `<div class="review quiet"><p>Сейчас повторять нечего. Слова для повторения появятся здесь в свой день.</p></div>`;
-
-  hero.innerHTML = `<div class="brand">Learn like a star</div>
-    <img class="crane" src="${CRANE}" alt="Журавль в стиле модерн">
-    <div class="hero-in">
-      <h1 class="hero-title">Learn<br>like a<br>star</h1>
-      <div class="hero-side">
-        <p>Румынский с нуля для взрослых. Короткие уроки, упражнения и повторение, чтобы слова оставались в памяти.</p>
-        <button class="pill" id="start">${started ? "Продолжить занятия" : "Начать с урока 1"}</button>
-      </div>
-    </div>`;
+  hero.innerHTML = `<figure class="crane-wrap">
+      <img class="crane" src="${CRANE}" alt="Журавль в стиле модерн">
+      <figcaption>Румынский язык</figcaption>
+    </figure>
+    <div class="hero-in"><h1 class="hero-title">Learn<br>like a<br>star</h1></div>`;
   $app.innerHTML = `
     ${started ? `<div class="stats">
       <div class="stat"><b>${st}</b><span>${plural(st,"день","дня","дней")} подряд</span></div>
@@ -433,34 +545,23 @@ function renderHome(){
     </div>` : ""}
     ${reviewBlock}
     <section class="lsec" id="lessons">
-      <h2>${esc(UNIT1.title)}</h2>
-      <ul class="lgrid">
-        <li><button class="ltile" id="theory">
-          <span class="k">Учить румынский</span><span class="n">Урок 1, теория</span>
-          <span class="t">Правила чтения и грамматика</span><span class="arr" aria-hidden="true">→</span>
-        </button></li>
-        ${UNIT1.parts.map((l,i) => row(l, "1."+(i+1))).join("")}
-      </ul>
-    </section>
-    <section class="lsec">
-      <h2>Следующие уроки</h2>
-      <ul class="lgrid">${MORE.map((l,i) => row(l, String(i+2))).join("")}</ul>
+      <h2>Уроки</h2>
+      <ul class="llist">${COURSE.map(tile).join("")}</ul>
     </section>
     <p class="note">${voiceOK() ? "Озвучка работает через румынский голос вашего браузера." : "Для озвучки нужен румынский голос в браузере или телефоне. Если его нет, ориентируйтесь на транскрипцию: ударная гласная отмечена чёрточкой сверху, например «а́»."} Прогресс сохраняется в этом браузере.</p>
   `;
-  $app.querySelectorAll("[data-l]").forEach(b => b.onclick = () => { startLesson(b.dataset.l); window.scrollTo(0,0); });
+  $app.querySelectorAll("[data-c]").forEach(b => b.onclick = () => { S = {phase:"lesson", n:+b.dataset.c}; render(); window.scrollTo(0,0); });
   const r = document.getElementById("rev"); if (r) r.onclick = () => { startReview(); window.scrollTo(0,0); };
-  document.getElementById("theory").onclick = () => { S = {phase:"theory"}; render(); window.scrollTo(0,0); };
-  document.getElementById("start").onclick = () => {
-    if (!started) { S = {phase:"theory"}; render(); window.scrollTo(0,0); }
-    else document.getElementById("lessons").scrollIntoView({behavior:"smooth"});
-  };
 }
-function row(l, num){
-  const p = lessonPct(l);
-  return `<li><button class="ltile" data-l="${l.id}">
-    <span class="k">Учить румынский</span><span class="n">Урок ${num}</span>
-    <span class="t">${esc(l.title)}</span><span class="arr" aria-hidden="true">→</span>
+function tile(c){
+  const words = courseWords(c), p = lessonPct({words});
+  const vocabN = c.vocab.reduce((a,id) => a + grp(id).words.length, 0);
+  const parts = [c.alphabet ? "алфавит" : "", vocabN + " " + plural(vocabN,"слово","слова","слов"), c.grammar ? "грамматика" : ""].filter(Boolean);
+  const meta = parts.join(", ");
+  return `<li><button class="lrow" data-c="${c.n}">
+    <span class="pn">${c.n}</span>
+    <span class="lbody"><span class="n">Урок ${c.n}</span><span class="t">${esc(c.title)}</span><span class="m">${esc(meta.charAt(0).toUpperCase()+meta.slice(1))}</span></span>
+    <span class="arr" aria-hidden="true">→</span>
     <span class="pbar" aria-label="Пройдено ${p}%"><i style="width:${p}%"></i></span>
   </button></li>`;
 }
@@ -469,73 +570,104 @@ const chip = (w, t) => `<button class="chip" data-say="${esc(w)}"><span lang="ro
 function conj(rows){
   return `<table class="conj"><tbody>${rows.map(r => `<tr><td lang="ro">${esc(r[0])}</td><td>${esc(r[1])}</td><td><button class="speak small" data-say="${esc(r[0])}" aria-label="Послушать">${SPK}</button></td></tr>`).join("")}</tbody></table>`;
 }
-function renderTheory(){
-  $app.innerHTML = `
-    <div class="top"><button class="back" id="back">К урокам</button><span class="count">Урок 1</span></div>
-    <h1>Правила чтения и грамматика</h1>
-    <p class="lead">Нажмите на слово, чтобы его послушать.</p>
+const card = (inner) => `<section class="card"><div class="card-body">${inner}</div></section>`;
 
-    <section class="card"><div class="card-body">
-      <h3>Румынский алфавит</h3>
+function alphabetHTML(){
+  return card(`<h3>Румынский алфавит</h3>
       <div class="abc" lang="ro">${ALPHABET.map(c => `<span>${c}</span>`).join("")}</div>
-      <p class="small">31 буква. Буквы k, q, w, y встречаются в основном в заимствованных словах.</p>
-    </div></section>
-
-    <section class="card"><div class="card-body">
-      <h3>Буква C</h3>
+      <p class="small">31 буква. Буквы k, q, w, y встречаются в основном в заимствованных словах.</p>`)
+  + card(`<h3>Буква C</h3>
       <p>Перед <span lang="ro">a, o, u</span> звучит как «к»:</p>
       <div class="chips">${chip("casa","ка́са")}${chip("copil","копи́л")}${chip("curte","ку́рте")}</div>
       <p>Перед <span lang="ro">e, i</span> звучит как «ч»:</p>
       <div class="chips">${chip("cer","чер")}${chip("cinema","чи́нема")}</div>
       <p>Чтобы перед <span lang="ro">e, i</span> звучало «к», добавляют букву <span lang="ro">h</span>:</p>
-      <div class="chips">${chip("chemare","кема́ре")}${chip("chin","кин")}</div>
-    </div></section>
-
-    <section class="card"><div class="card-body">
-      <h3>Буква G</h3>
+      <div class="chips">${chip("chemare","кема́ре")}${chip("chin","кин")}</div>`)
+  + card(`<h3>Буква G</h3>
       <p>Перед <span lang="ro">a, o, u</span> звучит как «г»:</p>
       <div class="chips">${chip("gară","га́рэ")}${chip("gură","гу́рэ")}</div>
       <p>Перед <span lang="ro">e, i</span> звучит как «дж»:</p>
       <div class="chips">${chip("geam","джям")}${chip("gin","джин")}</div>
       <p>Чтобы перед <span lang="ro">e, i</span> звучало «г», добавляют букву <span lang="ro">h</span>:</p>
-      <div class="chips">${chip("gheață","гя́цэ")}${chip("ghips","гипс")}</div>
-    </div></section>
-
-    <section class="card"><div class="card-body">
-      <h3>Другие особенности чтения</h3>
+      <div class="chips">${chip("gheață","гя́цэ")}${chip("ghips","гипс")}</div>`)
+  + card(`<h3>Другие особенности чтения</h3>
       <table class="read"><tbody>
         ${READING.map(r => `<tr><td lang="ro">${esc(r[0])}</td><td>${esc(r[1])}<br>${chip(r[2], r[3])}</td></tr>`).join("")}
-      </tbody></table>
-    </div></section>
+      </tbody></table>`);
+}
 
-    <section class="card"><div class="card-body">
-      <h3>Глагол <span lang="ro">a fi</span> (быть)</h3>
+const exs = list => list.map(e => `<div class="ex"><div class="exro" lang="ro">${esc(e[0])}</div><div class="exru">${esc(e[1])}</div></div>`).join("");
+const GRAMMAR = {
+ "u1-afi": () => `<h3>Глагол <span lang="ro">a fi</span> (быть)</h3>
       ${conj([["eu sunt","я есть"],["tu ești","ты есть"],["el este","он есть"],["ea este","она есть"],["noi suntem","мы есть"],["voi sunteți","вы есть"],["ei sunt","они есть"]])}
       <p class="small">В Молдове можно встретить старое написание <span lang="ro">sînt</span>. Сегодня правильно писать <span lang="ro">sunt</span>.</p>
       <h4>Примеры</h4>
       ${[["Tu ești rus.","Ты русский."],["Eu sunt din Moldova.","Я из Молдовы."],["Tu ești din Rusia.","Ты из России."],["Tu ești român?","Ты румын?"],["Ești din Moldova?","Ты из Молдовы?"]].map(e => `<div class="ex"><div class="exro" lang="ro">${esc(e[0])}</div><div class="exru">${esc(e[1])}</div></div>`).join("")}
       <p class="small">Местоимение часто опускают: <span lang="ro">Ești din Moldova?</span> значит то же, что <span lang="ro">Tu ești din Moldova?</span></p>
-    </div></section>
-
-    <section class="card"><div class="card-body">
-      <h3>Глагол <span lang="ro">a se numi</span> (зваться)</h3>
+      <h4>Отрицание</h4>
+      <p>Перед глаголом ставят <span lang="ro">nu</span>: <span lang="ro">eu nu sunt, tu nu ești, el nu este</span> и так далее.</p>
+      <p class="small">В разговоре сокращают: <span lang="ro">eu nu-s</span> (= <span lang="ro">nu sunt</span>), <span lang="ro">el nu-i, ea nu-i</span> (= <span lang="ro">nu este</span>).</p>
+      ${[["Eu nu sunt din Rusia.","Я не из России."],["El nu-i din Rusia.","Он не из России."],["Ea nu-i din Rusia.","Она не из России."]].map(e => `<div class="ex"><div class="exro" lang="ro">${esc(e[0])}</div><div class="exru">${esc(e[1])}</div></div>`).join("")}`,
+ "u1-numi": () => `<h3>Глагол <span lang="ro">a se numi</span> (зваться)</h3>
       ${conj([["eu mă numesc","я называюсь"],["tu te numești","ты называешься"],["el se numește","он называется"],["ea se numește","она называется"],["noi ne numim","мы называемся"],["voi vă numiți","вы называетесь"],["ei se numesc","они называются"]])}
-      <p class="small">По-русски обычно говорят «меня зовут»: <span lang="ro">Mă numesc Ana</span>, «Меня зовут Анна».</p>
-    </div></section>
-
-    <section class="card"><div class="card-body">
-      <h3>Запомните</h3>
+      <p class="small">По-русски обычно говорят «меня зовут»: <span lang="ro">Mă numesc Ana</span>, «Меня зовут Анна».</p>`,
+ "u2-ce": () => `<h3>Вопрос <span lang="ro">ce</span> (что? какой? как?)</h3>
+      ${conj([["Ce faci?","что делаешь? как дела?"],["Ce?","что? (просторечие)"],["Din ce țară ești?","из какой ты страны?"],["Din ce oraș ești?","из какого ты города?"],["Ce frumos!","как красиво!"]])}
+      <p class="small">Переспросить вежливо лучше словом <span lang="ro">Poftim?</span>, а не <span lang="ro">Ce?</span></p>`,
+ "u2-munca": () => `<h3>Кем ты работаешь?</h3>
+      <h4>Как спросить</h4>
+      ${conj([["Ce lucrezi?","кем работаешь?"],["Ce profesie ai?","какая у тебя профессия?"],["Cu ce te ocupi?","чем занимаешься?"],["Unde lucrezi?","где работаешь?"],["În ce țară lucrezi?","в какой стране работаешь?"]])}
+      <h4>Как ответить</h4>
+      ${exs([["Eu sunt IT specialist.","Я IT-специалист."],["Lucrez ca IT specialist.","Я работаю IT-специалистом."],["Mă ocup cu IT.","Я занимаюсь IT (сфера деятельности)."],["Sunt un profesor.","Я преподаватель."]])}`,
+ "u2-art": () => `<h3>Артикли <span lang="ro">un</span> и <span lang="ro">o</span></h3>
+      <p>Мужской род: артикль <span lang="ro">un</span>. Женский род: артикль <span lang="ro">o</span>.</p>
+      ${exs([["Sunt un profesor.","Я преподаватель (м. р.)."],["Sunt o profesoară.","Я преподавательница (ж. р.)."]])}
+      <p class="small">Средний род в единственном числе тоже берёт <span lang="ro">un</span>: <span lang="ro">un birou, un teatru</span>.</p>
+      <p class="small">С профессией артикль часто опускают: <span lang="ro">Sunt profesor</span> звучит так же естественно.</p>`,
+ "u2-unde": () => `<h3><span lang="ro">Unde</span>: где и откуда</h3>
+      <h4>Откуда? Отвечаем с <span lang="ro">din</span> (из)</h4>
+      ${exs([["Tu de unde ești?","Ты откуда?"],["Eu sunt din Rusia.","Я из России."]])}
+      <h4>Где? Отвечаем с <span lang="ro">în</span> (в)</h4>
+      ${exs([["Unde ești?","Ты где?"],["Sunt în Rusia.","Я в России."],["Unde este ea? (el)","Где она? (он)"],["Ea este în Rusia.","Она в России."],["Unde sunt ei? (ele)","Где они?"]])}
+      <p class="small">Вежливо, на «Вы»: <span lang="ro">Dumneavoastră sunteți din Moldova?</span>, «Вы из Молдовы?»</p>`
+};
+const GRAMMAR_NOTES = {1: `<h3>Запомните</h3>
       <p><span lang="ro">ei</span>: «они» о мужчинах или о смешанной группе. <span lang="ro">ele</span>: «они» только о женщинах.</p>
-      <p><span lang="ro">dumneavoastră</span>: вежливое «Вы». На письме сокращают <span lang="ro">Dvs.</span></p>
-    </div></section>
+      <p><span lang="ro">dumneavoastră</span>: вежливое «Вы». На письме сокращают <span lang="ro">Dvs.</span></p>`};
 
-    <div class="actions"><button class="btn btn-primary" id="go">Начать: 1.1 ${esc(UNIT1.parts[0].title)}</button></div>`;
-  bindCommon();
-  document.getElementById("go").onclick = () => { startLesson(UNIT1.parts[0].id); window.scrollTo(0,0); };
+function vocabGroup(g, multi){
+  return `<div class="vgroup">
+    ${multi ? `<div class="vhead"><h3>${esc(g.title)}</h3><button class="btn btn-ghost small-btn" data-train="${g.id}">Тренировать</button></div>` : ""}
+    <ul class="vlist">${g.words.map(w => `<li>
+      <span class="vro" lang="ro">${esc(w.ro)}</span>
+      <span class="vtr">[${esc(w.tr)}]</span>
+      <span class="vru">${esc(w.ru)}</span>
+      <button class="speak small" data-say="${esc(w.ro)}" aria-label="Послушать ${esc(w.ro)}">${SPK}</button>
+    </li>`).join("")}</ul></div>`;
+}
+
+function renderLesson(){
+  const c = COURSE.find(x => x.n===S.n);
+  const groups = c.vocab.map(grp), multi = groups.length > 1;
+  let sec = 0;
+  const head = t => `<h2 class="part"><span class="pn">${++sec}</span>${t}</h2>`;
+  $app.innerHTML = `
+    <div class="top"><button class="back" id="back">Все уроки</button><span class="count">Урок ${c.n}</span></div>
+    <h1>Урок ${c.n}. ${esc(c.title)}</h1>
+    <p class="lead">Нажмите на слово или на значок динамика, чтобы послушать.</p>
+    ${c.alphabet ? head("Алфавит и чтение") + alphabetHTML() : ""}
+    ${head("Словарь")}
+    ${card(groups.map(g => vocabGroup(g, multi)).join("") + `<div class="actions"><button class="btn btn-primary" id="trainAll">Тренировать ${multi ? "все слова урока" : "слова"}</button></div>`)}
+    ${c.grammar ? head("Грамматика") + c.grammar.map(id => card(GRAMMAR[id]() + `<div class="actions"><button class="btn btn-primary" data-train="${id}">Упражнения</button></div>`)).join("") + (GRAMMAR_NOTES[c.n] ? card(GRAMMAR_NOTES[c.n]) : "") : ""}
+  `;
+  document.getElementById("back").onclick = () => { S = null; render(); window.scrollTo(0,0); };
+  $app.querySelectorAll("[data-say]").forEach(x => x.onclick = () => speak(x.dataset.say));
+  $app.querySelectorAll("[data-train]").forEach(b => b.onclick = () => startLesson(b.dataset.train, c.n));
+  document.getElementById("trainAll").onclick = () => startWords(groups.flatMap(g => g.words), c.n);
 }
 
 function topBar(count, pct){
-  return `<div class="top"><button class="back" id="back">К урокам</button><span class="count">${count}</span></div>
+  return `<div class="top"><button class="back" id="back">${S.back ? "К уроку " + S.back : "К урокам"}</button><span class="count">${count}</span></div>
   <div class="steps"><i style="width:${pct}%"></i></div>`;
 }
 function wordBlock(w){
@@ -698,13 +830,16 @@ function renderDone(){
     </div></div>
     <div class="actions">
       ${bad.length ? `<button class="btn btn-ghost" id="rev">Повторить ошибки</button>` : ""}
-      <button class="btn btn-primary" id="home">К урокам</button>
+      <button class="btn btn-primary" id="home">${S.back ? "К уроку " + S.back : "К урокам"}</button>
     </div>`;
   document.getElementById("home").onclick = exit;
   const r = document.getElementById("rev");
-  if (r) r.onclick = () => { S = {mode:"review", words:bad, phase:"ex"}; buildQueue(); render(); window.scrollTo(0,0); };
+  if (r) r.onclick = () => { S = {mode:"review", words:bad, phase:"ex", back:S.back}; buildQueue(); render(); window.scrollTo(0,0); };
 }
 
+const goLessons = () => { if (synth) try{synth.cancel();}catch(e){} S = null; render(); document.getElementById("lessons")?.scrollIntoView(); };
+document.getElementById("navHome").onclick = () => { if (synth) try{synth.cancel();}catch(e){} S = null; render(); window.scrollTo(0,0); };
+document.getElementById("navLessons").onclick = goLessons;
 render();
 </script>
 </body>
