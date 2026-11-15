@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Румынский с нуля</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F4; --paper:#FFFFFF; --ink:#18202B; --muted:#5B6574; --line:#D7DDE5;
+  --blue:#1F4FA0; --blue-soft:#DCE5F3; --ok:#23784A; --ok-bg:#E7F3EC; --err:#B42318; --err-bg:#FBEAE8;
+  --motif:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M12 1l5 5-5 5-5-5z' fill='%231F4FA0'/%3E%3Crect x='11' y='5' width='2' height='2' fill='%23fff'/%3E%3Crect x='0' y='5' width='2' height='2' fill='%231F4FA0'/%3E%3Crect x='22' y='5' width='2' height='2' fill='%231F4FA0'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.5 'Golos Text',system-ui,sans-serif}
+.band{height:12px;background:var(--motif) repeat-x center/24px 12px;opacity:.9}
+main{max-width:600px;margin:0 auto;padding:28px 20px 72px}
+h1{font-family:Literata,Georgia,serif;font-weight:600;font-size:36px;line-height:1.12;margin:0 0 12px;letter-spacing:-.01em}
+h2{font-family:Literata,Georgia,serif;font-weight:600;font-size:24px;line-height:1.2;margin:36px 0 12px}
+.lead{color:var(--muted);margin:0 0 28px;max-width:34em}
+[lang=ro]{font-family:Literata,Georgia,serif}
+.stats{display:flex;gap:32px;margin:0 0 24px;flex-wrap:wrap}
+.stat b{display:block;font-family:Literata,Georgia,serif;font-size:30px;font-weight:600;line-height:1.1}
+.stat span{color:var(--muted);font-size:14px}
+.btn{appearance:none;border:0;border-radius:12px;min-height:50px;padding:12px 20px;font:500 17px 'Golos Text',system-ui,sans-serif;cursor:pointer;text-align:center}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#1A4489}
+.btn-ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue-soft)}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #E9A817;outline-offset:2px}
+.review{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--paper);border-radius:16px;padding:16px 18px}
+.review p{margin:0}
+.review.quiet{color:var(--muted);background:transparent;border:1.5px dashed var(--line)}
+.lessons{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.lesson-btn{all:unset;box-sizing:border-box;display:grid;grid-template-columns:44px 1fr auto;column-gap:14px;row-gap:8px;align-items:center;width:100%;padding:16px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.lesson-btn:hover .t{color:var(--blue)}
+.lesson-btn:focus-visible{outline:3px solid #E9A817;outline-offset:-3px}
+.lesson-btn .num{font-family:Literata,Georgia,serif;font-size:24px;color:var(--blue);grid-row:span 2;align-self:start;line-height:1.1}
+.lesson-btn .t{font-weight:600;font-size:18px}
+.lesson-btn .meta{color:var(--muted);font-size:14px;white-space:nowrap}
+.bar{height:6px;background:var(--blue-soft);border-radius:3px;overflow:hidden;grid-column:2/4}
+.bar i{display:block;height:100%;background:var(--blue);border-radius:3px}
+details.guide{background:var(--paper);border-radius:16px;padding:4px 18px;margin-top:12px}
+details.guide summary{cursor:pointer;min-height:52px;display:flex;align-items:center;font-weight:600;list-style:none}
+details.guide summary::-webkit-details-marker{display:none}
+details.guide summary::after{content:"+";margin-left:auto;font-size:24px;color:var(--blue);font-weight:400}
+details.guide[open] summary::after{content:"−"}
+.guide table{width:100%;border-collapse:collapse;margin:4px 0 16px;font-size:16px}
+.guide td{padding:10px 8px 10px 0;border-top:1px solid var(--line);vertical-align:top}
+.guide td:first-child{font-family:Literata,Georgia,serif;font-size:22px;font-weight:600;color:var(--blue);width:64px}
+.guide td:last-child{color:var(--muted);white-space:nowrap}
+.note{font-size:14px;color:var(--muted);margin-top:28px}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.back{all:unset;cursor:pointer;color:var(--blue);min-height:44px;display:flex;align-items:center;font-weight:500}
+.back:focus-visible{outline:3px solid #E9A817}
+.count{color:var(--muted);font-size:15px}
+.steps{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:18px}
+.steps i{display:block;height:100%;background:var(--blue);transition:width .3s}
+.card{background:var(--paper);border-radius:20px;overflow:hidden}
+.card::before{content:"";display:block;height:12px;background:var(--motif) repeat-x left/24px 12px}
+.card-body{padding:26px 22px 24px}
+.label{color:var(--muted);font-size:15px;margin:0 0 10px}
+.word-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ro{font-family:Literata,Georgia,serif;font-size:40px;font-weight:600;line-height:1.15;margin:0;overflow-wrap:anywhere}
+.big-ru{font-size:30px;font-weight:600;line-height:1.2;margin:0}
+.tr{color:var(--muted);font-size:18px;margin-top:6px}
+.g{display:inline-block;font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-left:8px;vertical-align:2px}
+.ru{font-size:22px;font-weight:500;margin:18px 0 0}
+.ex{border-left:3px solid var(--blue-soft);padding-left:12px;margin-top:18px}
+.ex .exro{font-family:Literata,Georgia,serif;font-size:19px}
+.ex .exru{color:var(--muted);font-size:15px}
+.speak{flex:none;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--blue-soft);background:#fff;color:var(--blue);display:grid;place-items:center;cursor:pointer}
+.speak:hover{background:var(--blue-soft)}
+.speak.large{width:84px;height:84px;margin:6px auto 0}
+.speak svg{width:24px;height:24px}
+.speak.large svg{width:36px;height:36px}
+.options{display:grid;gap:10px;margin-top:22px}
+.opt{all:unset;box-sizing:border-box;min-height:54px;padding:12px 16px;border-radius:12px;border:1.5px solid var(--line);background:#fff;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:18px;line-height:1.3}
+.opt:hover:not([aria-disabled=true]){border-color:var(--blue)}
+.opt:focus-visible{outline:3px solid #E9A817;outline-offset:2px}
+.opt[aria-disabled=true]{cursor:default}
+.opt .mark{margin-left:auto;font-weight:600}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.ok .mark{color:var(--ok)}
+.opt.bad{border-color:var(--err);background:var(--err-bg)}
+.opt.bad .mark{color:var(--err)}
+.feedback{margin-top:18px;padding:14px 16px;border-radius:12px;font-size:16px}
+.feedback.ok{background:var(--ok-bg);color:#14532D}
+.feedback.bad{background:var(--err-bg);color:#7A1A12}
+.feedback strong{display:block;margin-bottom:4px}
+.feedback .ans{font-size:19px}
+input.type{width:100%;min-height:56px;font:500 24px Literata,Georgia,serif;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;color:var(--ink);background:#fff;margin-top:20px}
+input.type:focus{border-color:var(--blue)}
+.dia{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.dia button{min-width:50px;min-height:46px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font:600 20px Literata,Georgia,serif;color:var(--ink);cursor:pointer}
+.dia button:hover{border-color:var(--blue)}
+.actions{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+.actions .btn{flex:1 1 140px}
+.done-title{font-family:Literata,Georgia,serif;font-size:32px;font-weight:600;margin:0 0 8px}
+.mist{list-style:none;padding:0;margin:12px 0 0}
+.mist li{padding:10px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+.mist li span:last-child{color:var(--muted);text-align:right}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;width:max-content;max-width:90vw;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.show{opacity:1}
+h3{font-family:Literata,Georgia,serif;font-weight:600;font-size:22px;margin:0 0 12px}
+h4{font-size:16px;margin:20px 0 4px}
+section.card{margin-bottom:14px}
+section.card p{margin:12px 0 8px}
+.small{font-size:15px;color:var(--muted)}
+.abc{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px}
+.abc span{display:grid;place-items:center;height:44px;border-radius:8px;background:var(--bg);font-size:20px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--blue-soft);background:#fff;border-radius:22px;min-height:44px;padding:6px 14px;font:500 18px 'Golos Text',system-ui,sans-serif;color:var(--ink);cursor:pointer}
+.chip:hover{border-color:var(--blue)}
+.chip-tr{color:var(--muted);font-size:15px;font-weight:400}
+table.conj,table.read{width:100%;border-collapse:collapse}
+.conj td,.read td{padding:8px 8px 8px 0;border-top:1px solid var(--line);vertical-align:middle}
+.conj td:first-child{font-size:20px;font-weight:600;width:52%}
+.conj td:nth-child(2){color:var(--muted)}
+.conj td:last-child{width:44px;padding-right:0}
+.read td:first-child{font-family:Literata,Georgia,serif;font-size:20px;font-weight:600;color:var(--blue);width:96px;vertical-align:top;padding-top:12px}
+.read .chip{margin-top:6px}
+.speak.small{width:40px;height:40px}
+.speak.small svg{width:18px;height:18px}
+.lesson-btn.theory .num{font-size:22px;grid-row:auto}
+.lesson-btn.theory{grid-template-rows:auto}
+.gap-s{font-size:28px;font-weight:600;line-height:1.3;margin:0}
+.blank{display:inline-block;min-width:80px;border-bottom:3px solid var(--blue);color:var(--blue);text-align:center;margin:0 4px}
+@media (max-width:420px){h1{font-size:31px}.ro{font-size:34px}.card-body{padding:22px 18px 20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="band" aria-hidden="true"></div>
+<main id="app"></main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------- Содержание курса (можно дополнять) ---------- */
+const UNIT1 = {title:"Урок 1. Алфавит и приветствия", parts:[
+ {id:"u1-salut", title:"Приветствия и прощания", words:[
+  {ro:"Bună dimineața", ru:"Доброе утро", tr:"бу́нэ диминя́ца", ex:"Bună dimineața, domnule!", exRu:"Доброе утро, господин!"},
+  {ro:"Bună ziua", ru:"Добрый день", tr:"бу́нэ зи́уа", ex:"Bună ziua, doamnă!", exRu:"Добрый день, госпожа!"},
+  {ro:"Bună seara", ru:"Добрый вечер", tr:"бу́нэ ся́ра", ex:"Bună seara, domnișoară!", exRu:"Добрый вечер, девушка!"},
+  {ro:"Noapte bună", ru:"Спокойной ночи", tr:"ноа́пте бу́нэ", ex:"Noapte bună, mamă!", exRu:"Спокойной ночи, мама!"},
+  {ro:"La revedere", ru:"До свидания", tr:"ла реведе́ре", ex:"La revedere, domnule!", exRu:"До свидания, господин!"},
+  {ro:"Salut", ru:"Привет", tr:"салу́т", ex:"Salut, eu sunt Ana.", exRu:"Привет, я Анна."},
+  {ro:"Bună", ru:"Привет (разговорное)", tr:"бу́нэ", ex:"Bună, ce faci?", exRu:"Привет, как дела?"},
+  {ro:"Ciao", ru:"Пока, привет", tr:"ча́о", ex:"Ciao, pe mâine!", exRu:"Пока, до завтра!"}
+ ]},
+ {id:"u1-pronume", title:"Личные местоимения", words:[
+  {ro:"eu", ru:"я", tr:"еу", ex:"Eu sunt din Moldova.", exRu:"Я из Молдовы."},
+  {ro:"tu", ru:"ты", tr:"ту", ex:"Tu ești din Rusia?", exRu:"Ты из России?"},
+  {ro:"el", ru:"он", tr:"йел", ex:"El este român.", exRu:"Он румын."},
+  {ro:"ea", ru:"она", tr:"я", ex:"Ea este din Ucraina.", exRu:"Она из Украины."},
+  {ro:"noi", ru:"мы", tr:"ной", ex:"Noi suntem din Chișinău.", exRu:"Мы из Кишинёва."},
+  {ro:"voi", ru:"вы", tr:"вой", ex:"Voi sunteți englezi?", exRu:"Вы англичане?"},
+  {ro:"ei", ru:"они (о мужчинах или смешанной группе)", tr:"йей", ex:"Ei sunt ruși.", exRu:"Они русские."},
+  {ro:"ele", ru:"они (о женщинах)", tr:"йе́ле", ex:"Ele sunt din Moldova.", exRu:"Они из Молдовы."}
+ ]},
+ {id:"u1-oameni", title:"Люди", words:[
+  {ro:"domn", ru:"господин", tr:"домн", g:"м. р.", ex:"Domnul Popescu este aici.", exRu:"Господин Попеску здесь."},
+  {ro:"domnișoară", ru:"мисс, девушка", tr:"домнишоа́рэ", g:"ж. р.", ex:"Domnișoara se numește Ana.", exRu:"Девушку зовут Анна."},
+  {ro:"băiat", ru:"мальчик", tr:"бэя́т", g:"м. р.", ex:"Băiatul este din Moldova.", exRu:"Мальчик из Молдовы."},
+  {ro:"fată", ru:"девочка", tr:"фа́тэ", g:"ж. р.", ex:"Fata se numește Maria.", exRu:"Девочку зовут Мария."},
+  {ro:"bărbat", ru:"мужчина", tr:"бэрба́т", g:"м. р.", ex:"Bărbatul este rus.", exRu:"Мужчина русский."},
+  {ro:"femeie", ru:"женщина", tr:"феме́йе", g:"ж. р.", ex:"Femeia este din Rusia.", exRu:"Женщина из России."}
+ ]},
+ {id:"u1-nationalitati", title:"Национальности", words:[
+  {ro:"naționalitate", ru:"национальность", tr:"нацьонали́тате", g:"ж. р.", ex:"Care este naționalitatea dumneavoastră?", exRu:"Какая у вас национальность?"},
+  {ro:"român", ru:"румын", tr:"ромы́н", ex:"Ion este român.", exRu:"Ион румын."},
+  {ro:"englez", ru:"англичанин", tr:"енгле́з", ex:"John este englez.", exRu:"Джон англичанин."},
+  {ro:"rus", ru:"русский", tr:"рус", ex:"Eu sunt rus.", exRu:"Я русский."},
+  {ro:"ucrainean", ru:"украинец", tr:"украиня́н", ex:"El este ucrainean.", exRu:"Он украинец."}
+ ]},
+ {id:"u1-altele", title:"Маленькие слова", words:[
+  {ro:"dumneavoastră", ru:"Вы (вежливо), сокращённо Dvs.", tr:"думнявоа́стрэ", ex:"Dumneavoastră sunteți din Moldova?", exRu:"Вы из Молдовы?"},
+  {ro:"în", ru:"в", tr:"ын", ex:"Eu sunt în Chișinău.", exRu:"Я в Кишинёве."},
+  {ro:"din", ru:"из", tr:"дин", ex:"Ea este din Rusia.", exRu:"Она из России."},
+  {ro:"iar", ru:"а, снова", tr:"яр", ex:"Eu sunt rus, iar el este român.", exRu:"Я русский, а он румын."},
+  {ro:"dar", ru:"но", tr:"дар", ex:"Sunt din Rusia, dar locuiesc în Moldova.", exRu:"Я из России, но живу в Молдове."},
+  {ro:"da", ru:"да", tr:"да", ex:"Da, sunt din Moldova.", exRu:"Да, я из Молдовы."},
+  {ro:"nu", ru:"нет", tr:"ну", ex:"Nu, nu sunt român.", exRu:"Нет, я не румын."}
+ ]},
+ {id:"u1-afi", title:"Глагол a fi (быть)", words:[
+  {ro:"eu sunt", ru:"я есть", tr:"еу сунт", ex:"Eu sunt din Moldova.", exRu:"Я из Молдовы.", gap:"Eu ___ din Moldova.", ans:"sunt"},
+  {ro:"tu ești", ru:"ты есть", tr:"ту йешть", ex:"Tu ești rus.", exRu:"Ты русский.", gap:"Tu ___ rus.", ans:"ești"},
+  {ro:"el este", ru:"он есть", tr:"йел йе́сте", ex:"El este român.", exRu:"Он румын.", gap:"El ___ român.", ans:"este"},
+  {ro:"ea este", ru:"она есть", tr:"я йе́сте", ex:"Ea este din Rusia.", exRu:"Она из России.", gap:"Ea ___ din Rusia.", ans:"este"},
+  {ro:"noi suntem", ru:"мы есть", tr:"ной су́нтем", ex:"Noi suntem din Moldova.", exRu:"Мы из Молдовы.", gap:"Noi ___ din Moldova.", ans:"suntem"},
+  {ro:"voi sunteți", ru:"вы есть", tr:"вой су́нтець", ex:"Voi sunteți din Rusia?", exRu:"Вы из России?", gap:"Voi ___ din Rusia?", ans:"sunteți"},
+  {ro:"ei sunt", ru:"они есть", tr:"йей сунт", ex:"Ei sunt ucraineni.", exRu:"Они украинцы.", gap:"Ei ___ ucraineni.", ans:"sunt"}
+ ]},
+ {id:"u1-numi", title:"Глагол a se numi (зваться)", words:[
+  {ro:"eu mă numesc", ru:"я называюсь (меня зовут)", tr:"еу мэ нуме́ск", ex:"Eu mă numesc Ana.", exRu:"Меня зовут Анна.", gap:"Eu ___ Ana.", ans:"mă numesc"},
+  {ro:"tu te numești", ru:"ты называешься (тебя зовут)", tr:"ту те нуме́шть", ex:"Cum te numești?", exRu:"Как тебя зовут?", gap:"Tu ___ Ion?", ans:"te numești"},
+  {ro:"el se numește", ru:"он называется (его зовут)", tr:"йел се нуме́ште", ex:"El se numește Ion.", exRu:"Его зовут Ион.", gap:"El ___ Ion.", ans:"se numește"},
+  {ro:"ea se numește", ru:"она называется (её зовут)", tr:"я се нуме́ште", ex:"Ea se numește Maria.", exRu:"Её зовут Мария.", gap:"Ea ___ Maria.", ans:"se numește"},
+  {ro:"noi ne numim", ru:"мы называемся (нас зовут)", tr:"ной не нуми́м", ex:"Noi ne numim Ana și Ion.", exRu:"Нас зовут Анна и Ион.", gap:"Noi ___ Ana și Ion.", ans:"ne numim"},
+  {ro:"voi vă numiți", ru:"вы называетесь (вас зовут)", tr:"вой вэ нуми́ць", ex:"Cum vă numiți?", exRu:"Как вас зовут?", gap:"Voi ___ Ion și Mihai?", ans:"vă numiți"},
+  {ro:"ei se numesc", ru:"они называются (их зовут)", tr:"йей се нуме́ск", ex:"Ei se numesc Ion și Mihai.", exRu:"Их зовут Ион и Михай.", gap:"Ei ___ Ion și Mihai.", ans:"se numesc"}
+ ]}
+]};
+
+const MORE = [
+ {id:"politete", title:"Вежливость", words:[
+  {ro:"Mulțumesc", ru:"Спасибо", tr:"мулцуме́ск", ex:"Mulțumesc frumos!", exRu:"Большое спасибо!"},
+  {ro:"Vă rog", ru:"Пожалуйста (вежливо)", tr:"вэ рог", ex:"O cafea, vă rog.", exRu:"Кофе, пожалуйста."},
+  {ro:"Te rog", ru:"Пожалуйста (на «ты»)", tr:"те рог", ex:"Dă-mi apă, te rog.", exRu:"Дай мне воды, пожалуйста."},
+  {ro:"Cu plăcere", ru:"Не за что", tr:"ку плэче́ре", ex:"Mulțumesc! Cu plăcere.", exRu:"Спасибо! Не за что."},
+  {ro:"Scuzați-mă", ru:"Извините", tr:"скуза́ць мэ", ex:"Scuzați-mă, unde este gara?", exRu:"Извините, где вокзал?"},
+  {ro:"Îmi pare rău", ru:"Мне жаль", tr:"ым па́ре рэу", ex:"Îmi pare rău, nu înțeleg.", exRu:"Извините, я не понимаю."},
+  {ro:"Poftim", ru:"Пожалуйста (подавая что-то)", tr:"пофти́м", ex:"Poftim, cafeaua dumneavoastră.", exRu:"Пожалуйста, ваш кофе."}
+ ]},
+ {id:"fraze", title:"Первые фразы", words:[
+  {ro:"Ce faceți?", ru:"Как у вас дела?", tr:"че фа́чець", ex:"Bună ziua, ce faceți?", exRu:"Здравствуйте, как у вас дела?"},
+  {ro:"Bine", ru:"Хорошо", tr:"би́не", ex:"Sunt bine, mulțumesc.", exRu:"У меня всё хорошо, спасибо."},
+  {ro:"Așa și așa", ru:"Так себе", tr:"аша́ ши аша́", ex:"Ce faci? Așa și așa.", exRu:"Как дела? Так себе."},
+  {ro:"De unde sunteți?", ru:"Откуда вы?", tr:"де у́нде су́нтець", ex:"De unde sunteți? Sunt din Rusia.", exRu:"Откуда вы? Я из России."},
+  {ro:"Cât costă?", ru:"Сколько стоит?", tr:"кыт ко́стэ", ex:"Cât costă pâinea?", exRu:"Сколько стоит хлеб?"},
+  {ro:"Unde este…?", ru:"Где находится…?", tr:"у́нде йе́сте", ex:"Unde este gara?", exRu:"Где вокзал?"},
+  {ro:"Nu înțeleg", ru:"Я не понимаю", tr:"ну ынцеле́г", ex:"Nu înțeleg, vorbiți rar, vă rog.", exRu:"Я не понимаю, говорите медленно, пожалуйста."},
+  {ro:"Vorbiți rusește?", ru:"Вы говорите по-русски?", tr:"ворби́ць русе́ште", ex:"Scuzați-mă, vorbiți rusește?", exRu:"Извините, вы говорите по-русски?"}
+ ]},
+ {id:"numere", title:"Числа от 1 до 10", words:[
+  {ro:"unu", ru:"один", tr:"у́ну", ex:"Unu, doi, trei!", exRu:"Раз, два, три!"},
+  {ro:"doi", ru:"два", tr:"дой", ex:"Am doi frați.", exRu:"У меня два брата."},
+  {ro:"trei", ru:"три", tr:"трей", ex:"Trei cafele, vă rog.", exRu:"Три кофе, пожалуйста."},
+  {ro:"patru", ru:"четыре", tr:"па́тру", ex:"Am patru copii.", exRu:"У меня четверо детей."},
+  {ro:"cinci", ru:"пять", tr:"чинч", ex:"Costă cinci lei.", exRu:"Стоит пять леев."},
+  {ro:"șase", ru:"шесть", tr:"ша́се", ex:"Este ora șase.", exRu:"Сейчас шесть часов."},
+  {ro:"șapte", ru:"семь", tr:"ша́пте", ex:"O săptămână are șapte zile.", exRu:"В неделе семь дней."},
+  {ro:"opt", ru:"восемь", tr:"опт", ex:"Lucrez opt ore.", exRu:"Я работаю восемь часов."},
+  {ro:"nouă", ru:"девять", tr:"но́уэ", ex:"Magazinul se deschide la nouă.", exRu:"Магазин открывается в девять."},
+  {ro:"zece", ru:"десять", tr:"зе́че", ex:"Costă zece lei.", exRu:"Стоит десять леев."}
+ ]},
+ {id:"familie", title:"Семья", words:[
+  {ro:"mamă", ru:"мама", tr:"ма́мэ", g:"ж. р.", ex:"Mama mea este acasă.", exRu:"Моя мама дома."},
+  {ro:"tată", ru:"папа, отец", tr:"та́тэ", g:"м. р.", ex:"Tatăl meu lucrează.", exRu:"Мой отец работает."},
+  {ro:"frate", ru:"брат", tr:"фра́те", g:"м. р.", ex:"Am un frate.", exRu:"У меня есть брат."},
+  {ro:"soră", ru:"сестра", tr:"со́рэ", g:"ж. р.", ex:"Sora mea se numește Ana.", exRu:"Мою сестру зовут Анна."},
+  {ro:"fiu", ru:"сын", tr:"фиу", g:"м. р.", ex:"Fiul meu are zece ani.", exRu:"Моему сыну десять лет."},
+  {ro:"fiică", ru:"дочь", tr:"фи́икэ", g:"ж. р.", ex:"Fiica mea învață română.", exRu:"Моя дочь учит румынский."},
+  {ro:"bunică", ru:"бабушка", tr:"буни́кэ", g:"ж. р.", ex:"Bunica face plăcinte.", exRu:"Бабушка печёт пироги."},
+  {ro:"bunic", ru:"дедушка", tr:"буни́к", g:"м. р.", ex:"Bunicul citește ziarul.", exRu:"Дедушка читает газету."}
+ ]},
+ {id:"mancare", title:"Еда и напитки", words:[
+  {ro:"pâine", ru:"хлеб", tr:"пы́йне", g:"ж. р.", ex:"Pâinea este proaspătă.", exRu:"Хлеб свежий."},
+  {ro:"apă", ru:"вода", tr:"а́пэ", g:"ж. р.", ex:"Un pahar de apă, vă rog.", exRu:"Стакан воды, пожалуйста."},
+  {ro:"lapte", ru:"молоко", tr:"ла́пте", g:"ср. р.", ex:"Copiii beau lapte.", exRu:"Дети пьют молоко."},
+  {ro:"cafea", ru:"кофе", tr:"кафя́", g:"ж. р.", ex:"Beau cafea dimineața.", exRu:"Я пью кофе по утрам."},
+  {ro:"ceai", ru:"чай", tr:"чай", g:"ср. р.", ex:"Vreți ceai?", exRu:"Хотите чаю?"},
+  {ro:"brânză", ru:"сыр, брынза", tr:"бры́нзэ", g:"ж. р.", ex:"Îmi place brânza.", exRu:"Я люблю сыр."},
+  {ro:"carne", ru:"мясо", tr:"ка́рне", g:"ж. р.", ex:"Nu mănânc carne.", exRu:"Я не ем мясо."},
+  {ro:"măr", ru:"яблоко", tr:"мэр", g:"ср. р.", ex:"Mărul este roșu.", exRu:"Яблоко красное."}
+ ]},
+ {id:"oras", title:"Город", words:[
+  {ro:"casă", ru:"дом", tr:"ка́сэ", g:"ж. р.", ex:"Casa mea este mică.", exRu:"Мой дом маленький."},
+  {ro:"stradă", ru:"улица", tr:"стра́дэ", g:"ж. р.", ex:"Strada este lungă.", exRu:"Улица длинная."},
+  {ro:"magazin", ru:"магазин", tr:"магази́н", g:"ср. р.", ex:"Magazinul este închis.", exRu:"Магазин закрыт."},
+  {ro:"gară", ru:"вокзал", tr:"га́рэ", g:"ж. р.", ex:"Gara este aproape.", exRu:"Вокзал близко."},
+  {ro:"farmacie", ru:"аптека", tr:"фармачи́е", g:"ж. р.", ex:"Unde este farmacia?", exRu:"Где аптека?"},
+  {ro:"spital", ru:"больница", tr:"спита́л", g:"ср. р.", ex:"Spitalul este mare.", exRu:"Больница большая."},
+  {ro:"școală", ru:"школа", tr:"шко́алэ", g:"ж. р.", ex:"Copiii merg la școală.", exRu:"Дети идут в школу."},
+  {ro:"piață", ru:"рынок", tr:"пя́цэ", g:"ж. р.", ex:"Merg la piață.", exRu:"Я иду на рынок."}
+ ]}
+];
+const LESSONS = UNIT1.parts.concat(MORE);
+
+const ALPHABET = "A Ă Â B C D E F G H I Î J K L M N O P Q R S Ș T Ț U V W X Y Z".split(" ");
+const READING = [
+ ["ă","короткий неясный звук, похож на безударное «э»","casă","ка́сэ"],
+ ["â, î","звук «ы»","român","ромы́н"],
+ ["ș","«ш»","domnișoară","домнишоа́рэ"],
+ ["ț","«ц»","naționalitate","нацьонали́тате"],
+ ["e в начале","в некоторых словах звучит как «йе»","este","йе́сте"],
+ ["ea","читается как «я»","seara","ся́ра"],
+ ["i в конце","после согласной почти не слышно, смягчает её","ești","йешть"],
+ ["h, j","«х», «ж»","joi","жой"]
+];
+
+/* ---------- Прогресс ---------- */
+const KEY = "ro-ru-progress-v1";
+const DAY = 864e5;
+const INTERVALS = [0,1,3,7,14,30];
+let store = {words:{}, streak:{last:null,count:0}};
+try { const s = localStorage.getItem(KEY); if (s) { const p = JSON.parse(s); if (p && p.words) store = Object.assign(store, p); } } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} }
+
+const ALL = [];
+LESSONS.forEach(l => l.words.forEach((w,i) => { w.id = l.id + "-" + i; w.lesson = l.id; ALL.push(w); }));
+
+const wp = w => store.words[w.id];
+const isDue = w => { const p = wp(w); return !!p && p.due <= Date.now(); };
+const learned = () => ALL.filter(w => (wp(w)||{}).box >= 3).length;
+function lessonPct(l){ const s = l.words.reduce((a,w)=>a+Math.min((wp(w)||{box:0}).box,3),0); return Math.round(s/(3*l.words.length)*100); }
+function dayStr(offset=0){ const d = new Date(Date.now()+offset*DAY); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+function streakNow(){ const s = store.streak; return (s.last===dayStr() || s.last===dayStr(-1)) ? s.count : 0; }
+function bumpStreak(){ const s = store.streak; if (s.last===dayStr()) return; s.count = (s.last===dayStr(-1)) ? s.count+1 : 1; s.last = dayStr(); }
+
+/* ---------- Озвучка ---------- */
+const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+let voice = null;
+function loadVoices(){ if (!synth) return; try { const vs = synth.getVoices(); voice = vs.find(v => /^ro([-_]|$)/i.test(v.lang)) || null; } catch(e) {} }
+if (synth) { loadVoices(); try { synth.addEventListener("voiceschanged", () => { const had = !!voice; loadVoices(); if (!S && had !== !!voice) render(); }); } catch(e) {} }
+const voiceOK = () => !!(synth && voice);
+function speak(text){
+  if (!synth) { toast("В этом браузере нет озвучки. Ориентируйтесь на транскрипцию."); return; }
+  loadVoices();
+  if (!voice) { toast("В браузере не найден румынский голос. Ориентируйтесь на транскрипцию."); return; }
+  try { synth.cancel(); const u = new SpeechSynthesisUtterance(text.replace(/…/g,"")); u.voice = voice; u.lang = voice.lang; u.rate = 0.85; synth.speak(u); }
+  catch(e) { toast("Не удалось включить озвучку."); }
+}
+const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+
+/* ---------- Помощники ---------- */
+const $app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+let toastT;
+function toast(msg){ const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove("show"), 3200); }
+function plural(n, one, few, many){ const m10=n%10, m100=n%100; if (m10===1&&m100!==11) return one; if (m10>=2&&m10<=4&&(m100<12||m100>14)) return few; return many; }
+function norm(s){ return s.toLowerCase().replace(/ş/g,"ș").replace(/ţ/g,"ț").replace(/-/g," ").replace(/[.,!?…:;"«»]/g,"").replace(/\s+/g," ").trim(); }
+const strip = s => s.replace(/[ăâ]/g,"a").replace(/î/g,"i").replace(/ș/g,"s").replace(/ț/g,"t");
+
+/* ---------- Сессия ---------- */
+let S = null;
+
+function startLesson(id){
+  const l = LESSONS.find(x => x.id===id);
+  S = {mode:"lesson", lesson:l, words:l.words, phase:"intro", i:0};
+  render();
+}
+function startReview(){
+  const due = shuffle(ALL.filter(isDue)).slice(0,15);
+  if (!due.length) { toast("Сейчас повторять нечего."); return; }
+  S = {mode:"review", words:due, phase:"ex"};
+  buildQueue(); render();
+}
+function pickType(w, avoid){
+  let types = ["ro2ru","ru2ro","type"]; if (voiceOK()) types.push("listen");
+  if (w && w.gap) types.push("gap","gap");
+  if (avoid && types.length>1) types = types.filter(t => t!==avoid);
+  return types[Math.floor(Math.random()*types.length)];
+}
+function buildQueue(){
+  S.queue = shuffle(S.words).map(w => ({w, type:pickType(w)}));
+  S.qi = 0; S.first = {}; S.retries = {}; S.answered = false;
+}
+function poolFor(w){
+  const l = LESSONS.find(x => x.id===w.lesson);
+  let pool = l.words.filter(x => x!==w);
+  if (pool.length < 3) pool = pool.concat(ALL.filter(x => x!==w && x.lesson!==w.lesson));
+  return pool;
+}
+function options(w, field){
+  const used = new Set([w[field]]); const out = [w];
+  for (const x of shuffle(poolFor(w))) { if (out.length>=4) break; if (!used.has(x[field])) { used.add(x[field]); out.push(x); } }
+  return shuffle(out);
+}
+function exit(){ if (synth) try{synth.cancel();}catch(e){} S = null; render(); window.scrollTo(0,0); }
+
+/* ---------- Экраны ---------- */
+function render(){
+  if (!S) return renderHome();
+  if (S.phase==="theory") return renderTheory();
+  if (S.phase==="intro") return renderIntro();
+  if (S.phase==="ex") return renderEx();
+  return renderDone();
+}
+
+function renderHome(){
+  const due = ALL.filter(isDue).length;
+  const started = ALL.some(w => wp(w));
+  const st = streakNow();
+  let reviewBlock = "";
+  if (due) reviewBlock = `<div class="review"><p>Пора повторить: <b>${due}</b> ${plural(due,"слово","слова","слов")}</p><button class="btn btn-primary" id="rev">Повторить</button></div>`;
+  else if (started) reviewBlock = `<div class="review quiet"><p>Сейчас повторять нечего. Слова для повторения появятся здесь в свой день.</p></div>`;
+
+  $app.innerHTML = `
+    <h1>Румынский с нуля</h1>
+    <p class="lead">Короткие уроки для тех, кто начинает с самого начала. Сначала знакомитесь со словами, потом закрепляете их в упражнениях. Слова, в которых были ошибки, вернутся в повторении.</p>
+    ${started ? `<div class="stats">
+      <div class="stat"><b>${st}</b><span>${plural(st,"день","дня","дней")} подряд</span></div>
+      <div class="stat"><b>${learned()}</b><span>из ${ALL.length} слов выучено</span></div>
+    </div>` : ""}
+    ${reviewBlock}
+    <h2>${esc(UNIT1.title)}</h2>
+    <ol class="lessons">
+      <li><button class="lesson-btn theory" id="theory">
+        <span class="num" aria-hidden="true">Aa</span>
+        <span class="t">Правила чтения и грамматика</span>
+        <span class="meta">теория</span>
+      </button></li>
+      ${UNIT1.parts.map((l,i) => row(l, "1."+(i+1))).join("")}
+    </ol>
+    <h2>Следующие уроки</h2>
+    <ol class="lessons">
+      ${MORE.map((l,i) => row(l, String(i+2))).join("")}
+    </ol>
+    <p class="note">${voiceOK() ? "Озвучка работает через румынский голос вашего браузера." : "Для озвучки нужен румынский голос в браузере или телефоне. Если его нет, ориентируйтесь на транскрипцию: ударная гласная отмечена чёрточкой сверху, например «а́»."} Прогресс сохраняется в этом браузере.</p>
+  `;
+  $app.querySelectorAll("[data-l]").forEach(b => b.onclick = () => { startLesson(b.dataset.l); window.scrollTo(0,0); });
+  const r = document.getElementById("rev"); if (r) r.onclick = () => { startReview(); window.scrollTo(0,0); };
+  document.getElementById("theory").onclick = () => { S = {phase:"theory"}; render(); window.scrollTo(0,0); };
+}
+function row(l, num){
+  const p = lessonPct(l);
+  return `<li><button class="lesson-btn" data-l="${l.id}">
+    <span class="num">${num}</span>
+    <span class="t">${esc(l.title)}</span>
+    <span class="meta">${l.words.length} ${plural(l.words.length,"слово","слова","слов")}</span>
+    <span class="bar" aria-label="Пройдено ${p}%"><i style="width:${p}%"></i></span>
+  </button></li>`;
+}
+
+const chip = (w, t) => `<button class="chip" data-say="${esc(w)}"><span lang="ro">${esc(w)}</span> <span class="chip-tr">[${esc(t)}]</span></button>`;
+function conj(rows){
+  return `<table class="conj"><tbody>${rows.map(r => `<tr><td lang="ro">${esc(r[0])}</td><td>${esc(r[1])}</td><td><button class="speak small" data-say="${esc(r[0])}" aria-label="Послушать">${SPK}</button></td></tr>`).join("")}</tbody></table>`;
+}
+function renderTheory(){
+  $app.innerHTML = `
+    <div class="top"><button class="back" id="back">К урокам</button><span class="count">Урок 1</span></div>
+    <h1>Правила чтения и грамматика</h1>
+    <p class="lead">Нажмите на слово, чтобы его послушать.</p>
+
+    <section class="card"><div class="card-body">
+      <h3>Румынский алфавит</h3>
+      <div class="abc" lang="ro">${ALPHABET.map(c => `<span>${c}</span>`).join("")}</div>
+      <p class="small">31 буква. Буквы k, q, w, y встречаются в основном в заимствованных словах.</p>
+    </div></section>
+
+    <section class="card"><div class="card-body">
+      <h3>Буква C</h3>
+      <p>Перед <span lang="ro">a, o, u</span> звучит как «к»:</p>
+      <div class="chips">${chip("casa","ка́са")}${chip("copil","копи́л")}${chip("curte","ку́рте")}</div>
+      <p>Перед <span lang="ro">e, i</span> звучит как «ч»:</p>
+      <div class="chips">${chip("cer","чер")}${chip("cinema","чи́нема")}</div>
+      <p>Чтобы перед <span lang="ro">e, i</span> звучало «к», добавляют букву <span lang="ro">h</span>:</p>
+      <div class="chips">${chip("chemare","кема́ре")}${chip("chin","кин")}</div>
+    </div></section>
+
+    <section class="card"><div class="card-body">
+      <h3>Буква G</h3>
+      <p>Перед <span lang="ro">a, o, u</span> звучит как «г»:</p>
+      <div class="chips">${chip("gară","га́рэ")}${chip("gură","гу́рэ")}</div>
+      <p>Перед <span lang="ro">e, i</span> звучит как «дж»:</p>
+      <div class="chips">${chip("geam","джям")}${chip("gin","джин")}</div>
+      <p>Чтобы перед <span lang="ro">e, i</span> звучало «г», добавляют букву <span lang="ro">h</span>:</p>
+      <div class="chips">${chip("gheață","гя́цэ")}${chip("ghips","гипс")}</div>
+    </div></section>
+
+    <section class="card"><div class="card-body">
+      <h3>Другие особенности чтения</h3>
+      <table class="read"><tbody>
+        ${READING.map(r => `<tr><td lang="ro">${esc(r[0])}</td><td>${esc(r[1])}<br>${chip(r[2], r[3])}</td></tr>`).join("")}
+      </tbody></table>
+    </div></section>
+
+    <section class="card"><div class="card-body">
+      <h3>Глагол <span lang="ro">a fi</span> (быть)</h3>
+      ${conj([["eu sunt","я есть"],["tu ești","ты есть"],["el este","он есть"],["ea este","она есть"],["noi suntem","мы есть"],["voi sunteți","вы есть"],["ei sunt","они есть"]])}
+      <p class="small">В Молдове можно встретить старое написание <span lang="ro">sînt</span>. Сегодня правильно писать <span lang="ro">sunt</span>.</p>
+      <h4>Примеры</h4>
+      ${[["Tu ești rus.","Ты русский."],["Eu sunt din Moldova.","Я из Молдовы."],["Tu ești din Rusia.","Ты из России."],["Tu ești român?","Ты румын?"],["Ești din Moldova?","Ты из Молдовы?"]].map(e => `<div class="ex"><div class="exro" lang="ro">${esc(e[0])}</div><div class="exru">${esc(e[1])}</div></div>`).join("")}
+      <p class="small">Местоимение часто опускают: <span lang="ro">Ești din Moldova?</span> значит то же, что <span lang="ro">Tu ești din Moldova?</span></p>
+    </div></section>
+
+    <section class="card"><div class="card-body">
+      <h3>Глагол <span lang="ro">a se numi</span> (зваться)</h3>
+      ${conj([["eu mă numesc","я называюсь"],["tu te numești","ты называешься"],["el se numește","он называется"],["ea se numește","она называется"],["noi ne numim","мы называемся"],["voi vă numiți","вы называетесь"],["ei se numesc","они называются"]])}
+      <p class="small">По-русски обычно говорят «меня зовут»: <span lang="ro">Mă numesc Ana</span>, «Меня зовут Анна».</p>
+    </div></section>
+
+    <section class="card"><div class="card-body">
+      <h3>Запомните</h3>
+      <p><span lang="ro">ei</span>: «они» о мужчинах или о смешанной группе. <span lang="ro">ele</span>: «они» только о женщинах.</p>
+      <p><span lang="ro">dumneavoastră</span>: вежливое «Вы». На письме сокращают <span lang="ro">Dvs.</span></p>
+    </div></section>
+
+    <div class="actions"><button class="btn btn-primary" id="go">Начать: 1.1 ${esc(UNIT1.parts[0].title)}</button></div>`;
+  bindCommon();
+  document.getElementById("go").onclick = () => { startLesson(UNIT1.parts[0].id); window.scrollTo(0,0); };
+}
+
+function topBar(count, pct){
+  return `<div class="top"><button class="back" id="back">К урокам</button><span class="count">${count}</span></div>
+  <div class="steps"><i style="width:${pct}%"></i></div>`;
+}
+function wordBlock(w){
+  return `<div class="word-row"><div>
+      <p class="ro" lang="ro">${esc(w.ro)}${w.g ? `<span class="g">${esc(w.g)}</span>` : ""}</p>
+      <div class="tr">[${esc(w.tr)}]</div>
+    </div><button class="speak" data-say="${esc(w.ro)}" aria-label="Послушать">${SPK}</button></div>`;
+}
+function exampleBlock(w){
+  return `<div class="ex"><div class="exro" lang="ro">${esc(w.ex)}</div><div class="exru">${esc(w.exRu)}</div></div>`;
+}
+function bindCommon(){
+  const b = document.getElementById("back"); if (b) b.onclick = exit;
+  $app.querySelectorAll("[data-say]").forEach(x => x.onclick = () => speak(x.dataset.say));
+}
+
+function renderIntro(){
+  const w = S.words[S.i], n = S.words.length, last = S.i===n-1;
+  $app.innerHTML = `
+    ${topBar(`Новое слово ${S.i+1} из ${n}`, (S.i)/n*50)}
+    <div class="card"><div class="card-body">
+      ${wordBlock(w)}
+      <p class="ru">${esc(w.ru)}</p>
+      ${exampleBlock(w)}
+    </div></div>
+    <div class="actions">
+      ${S.i>0 ? `<button class="btn btn-ghost" id="prev">Назад</button>` : ""}
+      <button class="btn btn-primary" id="next">${last ? "Перейти к упражнениям" : "Дальше"}</button>
+    </div>`;
+  bindCommon();
+  const p = document.getElementById("prev"); if (p) p.onclick = () => { S.i--; render(); };
+  document.getElementById("next").onclick = () => {
+    if (last) { S.phase="ex"; buildQueue(); } else S.i++;
+    render(); document.getElementById("next")?.focus({preventScroll:true});
+  };
+}
+
+function renderEx(){
+  const item = S.queue[S.qi], w = item.w;
+  const base = S.mode==="lesson" ? 50 : 0, span = S.mode==="lesson" ? 50 : 100;
+  const pct = base + S.qi/S.queue.length*span;
+  const head = topBar(`Упражнение ${S.qi+1} из ${S.queue.length}`, pct);
+  S.answered = false;
+  let body = "";
+  if (item.type==="ro2ru") {
+    body = `<p class="label">Как это переводится?</p>${wordBlock(w)}
+      <div class="options">${options(w,"ru").map(o => `<button class="opt" data-ok="${o===w}">${esc(o.ru)}<span class="mark"></span></button>`).join("")}</div>`;
+  } else if (item.type==="ru2ro") {
+    body = `<p class="label">Как сказать по-румынски?</p><p class="big-ru">${esc(w.ru)}</p>
+      <div class="options">${options(w,"ro").map(o => `<button class="opt" lang="ro" data-ok="${o===w}">${esc(o.ro)}<span class="mark"></span></button>`).join("")}</div>`;
+  } else if (item.type==="listen") {
+    body = `<p class="label">Послушайте и выберите перевод</p>
+      <button class="speak large" data-say="${esc(w.ro)}" aria-label="Прослушать ещё раз">${SPK}</button>
+      <div class="options">${options(w,"ru").map(o => `<button class="opt" data-ok="${o===w}">${esc(o.ru)}<span class="mark"></span></button>`).join("")}</div>`;
+  } else if (item.type==="gap") {
+    const l = LESSONS.find(x => x.id===w.lesson);
+    const forms = shuffle([...new Set(l.words.filter(x => x.ans && x.ans!==w.ans).map(x => x.ans))]).slice(0,3).concat(w.ans);
+    const [a,b] = w.gap.split("___");
+    body = `<p class="label">Вставьте пропущенное слово</p>
+      <p class="gap-s" lang="ro">${esc(a)}<span class="blank">&nbsp;?&nbsp;</span>${esc(b)}</p>
+      <p class="tr">${esc(w.exRu)}</p>
+      <div class="options">${shuffle(forms).map(f => `<button class="opt" lang="ro" data-ok="${f===w.ans}">${esc(f)}<span class="mark"></span></button>`).join("")}</div>`;
+  } else {
+    body = `<p class="label">Напишите по-румынски</p><p class="big-ru">${esc(w.ru)}</p>
+      <input class="type" id="inp" lang="ro" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Ответ по-румынски">
+      <div class="dia" aria-label="Румынские буквы">${["ă","â","î","ș","ț"].map(c=>`<button data-c="${c}" lang="ro" aria-label="Вставить ${c}">${c}</button>`).join("")}</div>
+      <div class="actions"><button class="btn btn-ghost" id="dunno">Не знаю</button><button class="btn btn-primary" id="check">Проверить</button></div>`;
+  }
+  $app.innerHTML = `${head}<div class="card"><div class="card-body">${body}<div id="fb"></div></div></div><div class="actions" id="after"></div>`;
+  bindCommon();
+
+  if (item.type==="listen") setTimeout(() => speak(w.ro), 150);
+
+  $app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if (S.answered) return;
+    const ok = b.dataset.ok==="true";
+    $app.querySelectorAll(".opt").forEach(x => {
+      x.setAttribute("aria-disabled","true");
+      if (x.dataset.ok==="true") { x.classList.add("ok"); x.querySelector(".mark").textContent = "✓"; }
+    });
+    if (!ok) { b.classList.add("bad"); b.querySelector(".mark").textContent = "✗"; }
+    answer(ok);
+  });
+
+  const inp = document.getElementById("inp");
+  if (inp) {
+    setTimeout(() => inp.focus({preventScroll:true}), 50);
+    $app.querySelectorAll("[data-c]").forEach(b => b.onclick = () => {
+      const s = inp.selectionStart ?? inp.value.length, e = inp.selectionEnd ?? s;
+      inp.value = inp.value.slice(0,s) + b.dataset.c + inp.value.slice(e);
+      inp.focus(); inp.setSelectionRange(s+1, s+1);
+    });
+    const check = () => {
+      if (S.answered) return;
+      const v = norm(inp.value), t = norm(w.ro);
+      if (!v) { inp.focus(); return; }
+      if (v===t) answer(true);
+      else if (strip(v)===strip(t)) answer(true, "Почти идеально: не хватает румынских букв.");
+      else answer(false);
+    };
+    document.getElementById("check").onclick = check;
+    document.getElementById("dunno").onclick = () => { if (!S.answered) answer(false); };
+    inp.addEventListener("keydown", e => { if (e.key==="Enter") { e.preventDefault(); S.answered ? next() : check(); } });
+  }
+}
+
+function answer(ok, hint){
+  S.answered = true;
+  const item = S.queue[S.qi], w = item.w;
+  if (!(w.id in S.first)) S.first[w.id] = ok;
+  if (!ok) {
+    S.retries[w.id] = (S.retries[w.id]||0) + 1;
+    if (S.retries[w.id] <= 2) S.queue.push({w, type:pickType(w, item.type)});
+  }
+  const fb = document.getElementById("fb");
+  fb.innerHTML = `<div class="feedback ${ok ? "ok" : "bad"}">
+    <strong>${ok ? "✓ Верно" : "✗ Пока не так. Правильный ответ:"}</strong>
+    ${hint ? `<div>${esc(hint)}</div>` : ""}
+    <div class="ans"><span lang="ro">${esc(w.ro)}</span> [${esc(w.tr)}]: ${esc(w.ru)}</div>
+    ${exampleBlock(w)}
+  </div>`;
+  const ctl = document.querySelector(".card .actions"); if (ctl) ctl.remove();
+  const inp = document.getElementById("inp"); if (inp) inp.readOnly = true;
+  const after = document.getElementById("after");
+  after.innerHTML = `<button class="btn btn-primary" id="next">${S.qi===S.queue.length-1 ? "Завершить" : "Дальше"}</button>`;
+  const nb = document.getElementById("next"); nb.onclick = next;
+  if (!inp) nb.focus({preventScroll:true});
+  if (voiceOK() && item.type!=="listen") speak(w.ro);
+  fb.scrollIntoView({block:"nearest", behavior:"smooth"});
+}
+
+function next(){
+  if (S.qi < S.queue.length-1) { S.qi++; render(); window.scrollTo(0,0); }
+  else finish();
+}
+
+function finish(){
+  const now = Date.now();
+  S.words.forEach(w => {
+    const ok = S.first[w.id];
+    const p = store.words[w.id] || {box:0};
+    p.box = ok ? Math.min((store.words[w.id] ? p.box : 0) + 1, 5) : 0;
+    p.due = now + INTERVALS[p.box]*DAY;
+    store.words[w.id] = p;
+  });
+  bumpStreak(); save();
+  S.phase = "done"; render(); window.scrollTo(0,0);
+}
+
+function renderDone(){
+  const n = S.words.length, good = S.words.filter(w => S.first[w.id]).length;
+  const bad = S.words.filter(w => !S.first[w.id]);
+  $app.innerHTML = `
+    <div class="card"><div class="card-body">
+      <p class="done-title">${S.mode==="lesson" ? "Урок пройден" : "Повторение закончено"}</p>
+      <p>С первого раза: <b>${good} из ${n}</b>.</p>
+      ${bad.length ? `<p class="label" style="margin-top:18px">Эти слова вернутся в повторении уже сегодня:</p>
+        <ul class="mist">${bad.map(w => `<li><span lang="ro">${esc(w.ro)}</span><span>${esc(w.ru)}</span></li>`).join("")}</ul>`
+        : `<p class="label">Все слова снова появятся в повторении через несколько дней, чтобы закрепиться в памяти.</p>`}
+    </div></div>
+    <div class="actions">
+      ${bad.length ? `<button class="btn btn-ghost" id="rev">Повторить ошибки</button>` : ""}
+      <button class="btn btn-primary" id="home">К урокам</button>
+    </div>`;
+  document.getElementById("home").onclick = exit;
+  const r = document.getElementById("rev");
+  if (r) r.onclick = () => { S = {mode:"review", words:bad, phase:"ex"}; buildQueue(); render(); window.scrollTo(0,0); };
+}
+
+render();
+</script>
+</body>
+</html>
