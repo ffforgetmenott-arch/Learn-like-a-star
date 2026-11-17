@@ -282,6 +282,20 @@ details.sec>summary{padding:12px 14px;min-height:54px}
 .vgroup .vlist .vro{font-size:20px;overflow-wrap:break-word}
 @media (min-width:640px){.vgroup .vlist li{grid-template-columns:minmax(0,1.4fr) 80px minmax(0,1.3fr) auto}.vgroup .vlist .vro{font-size:22px}}
 .vgroup .vlist .vru{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word;min-width:0}
+
+/* v19: кликабельные буквы и примеры с кнопкой звука */
+.abc{grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:8px}
+.abc-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:62px;border-radius:12px;border:1.5px solid var(--blue-soft);background:#fff;color:var(--ink);cursor:pointer;font:inherit}
+.abc-btn b{font-size:21px;font-weight:700;line-height:1}
+.abc-ico svg{width:14px;height:14px;color:var(--blue)}
+.abc-btn:hover{border-color:var(--blue);background:var(--blue-soft)}
+.abc-btn:active{transform:scale(.96)}
+.abc-btn:focus-visible{outline:3px solid #9CC9C4;outline-offset:2px}
+.tap-hint{display:flex;align-items:center;gap:8px;margin:0 0 12px;color:var(--blue);font-weight:600;font-size:15px}
+.tap-ico{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--blue-soft);color:var(--blue);flex:none}
+.tap-ico svg{width:15px;height:15px}
+.chip{display:inline-flex;align-items:center;gap:10px;cursor:default;padding:4px 4px 4px 14px}
+.chip .speak.small{width:36px;height:36px}
 </style>
 </head>
 <body>
@@ -452,7 +466,8 @@ function tile(c){
   </button></li>`;
 }
 
-const chip = (w, t) => `<button class="chip" data-say="${esc(w)}"><span lang="ro">${esc(w)}</span> <span class="chip-tr">[${esc(t)}]</span></button>`;
+const chip = (w, t) => `<span class="chip"><span><span lang="ro">${esc(w)}</span> <span class="chip-tr">[${esc(t)}]</span></span><button class="speak small" data-say="${esc(w)}" aria-label="Послушать ${esc(w)}">${SPK}</button></span>`;
+const LETTER_NAME = {A:"a",Ă:"ă",Â:"â din a",B:"be",C:"ce",D:"de",E:"e",F:"ef",G:"ge",H:"haș",I:"i",Î:"î din i",J:"je",K:"ca",L:"el",M:"em",N:"en",O:"o",P:"pe",Q:"chiu",R:"er",S:"es",Ș:"șe",T:"te",Ț:"țe",U:"u",V:"ve",W:"dublu ve",X:"ics",Y:"i grec",Z:"zet"};
 function conj(rows){
   return `<table class="conj"><tbody>${rows.map(r => `<tr><td lang="ro">${esc(r[0])}</td><td>${esc(r[1])}</td><td><button class="speak small" data-say="${esc(r[0])}" aria-label="Послушать">${SPK}</button></td></tr>`).join("")}</tbody></table>`;
 }
@@ -460,7 +475,8 @@ const card = (inner) => `<section class="card"><div class="card-body">${inner}</
 
 function alphabetHTML(){
   return card(`<h3>Румынский алфавит</h3>
-      <div class="abc" lang="ro">${ALPHABET.map(c => `<span>${c}</span>`).join("")}</div>
+      <p class="tap-hint"><span class="tap-ico" aria-hidden="true">${SPK}</span>Нажмите на букву, чтобы услышать, как она звучит.</p>
+      <div class="abc" lang="ro">${ALPHABET.map(c => `<button class="abc-btn" data-say="${esc(LETTER_NAME[c] || c)}" aria-label="Послушать букву ${c}"><b>${c}${c.toLowerCase()}</b><span class="abc-ico" aria-hidden="true">${SPK}</span></button>`).join("")}</div>
       <p class="small">31 буква. Буквы k, q, w, y встречаются в основном в заимствованных словах.</p>`)
   + card(`<h3>Буква C</h3>
       <p>Перед <span lang="ro">a, o, u</span> звучит как «к»:</p>
