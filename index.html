@@ -412,6 +412,7 @@ main.xwide{max-width:1280px}
 .tsec .ttab th{background:var(--blue-soft)}
 
 /* v27: единый стиль таблиц */
+.fbans{display:flex;align-items:center;justify-content:space-between;gap:12px}.fbans .speak{flex:none}
 .gpron td{white-space:nowrap}.gpron tr>*:first-child{width:1%;white-space:nowrap;font-size:14px;padding-right:8px!important}
 #lessons,details.lgrp{scroll-margin-top:90px}
 details.lgrp{margin:14px 0}
@@ -1121,7 +1122,7 @@ function wordBlock(w){
 }
 function exampleBlock(w){
   if (!w.ex) return "";
-  return `<div class="ex"><div class="exro" lang="ro">${esc(w.ex)}</div><div class="exru">${esc(w.exRu)}</div></div>`;
+  return `<div class="ex"><div class="exro" lang="ro">${esc(w.ex)}${typeof sayBtn === "function" ? sayBtn(w.ex) : ""}</div><div class="exru">${esc(w.exRu)}</div></div>`;
 }
 function bindCommon(){
   const b = document.getElementById("back"); if (b) b.onclick = exit;
@@ -1232,9 +1233,10 @@ function answer(ok, hint){
   fb.innerHTML = `<div class="feedback ${ok ? "ok" : "bad"}">
     <strong>${ok ? "✓ Верно" : "✗ Пока не так. Правильный ответ:"}</strong>
     ${hint ? `<div>${esc(hint)}</div>` : ""}
-    <div class="ans"><span lang="ro">${esc(w.ro)}</span>${w.tr ? ` [${esc(w.tr)}]` : ""}: ${esc(w.ru)}</div>
+    <div class="ans fbans"><span><span lang="ro">${esc(w.ro)}</span>${w.tr ? ` [${esc(w.tr)}]` : ""}${/[.!?]$/.test(w.ro) ? "" : ":"} ${esc(w.ru)}</span><button class="speak small" data-say="${esc(w.ro)}" aria-label="Послушать">${SPK}</button></div>
     ${exampleBlock(w)}
   </div>`;
+  fb.querySelectorAll("[data-say]").forEach(x => x.onclick = () => speak(x.dataset.say));
   const ctl = document.querySelector(".card .actions"); if (ctl) ctl.remove();
   const inp = document.getElementById("inp"); if (inp) inp.readOnly = true;
   const after = document.getElementById("after");
