@@ -47,8 +47,8 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid
 details.guide{background:var(--paper);border-radius:16px;padding:4px 18px;margin-top:12px}
 details.guide summary{cursor:pointer;min-height:52px;display:flex;align-items:center;font-weight:600;list-style:none}
 details.guide summary::-webkit-details-marker{display:none}
-details.guide summary::after{content:"+";margin-left:auto;font-size:24px;color:var(--blue);font-weight:400}
-details.guide[open] summary::after{content:"−"}
+details.guide summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);transform:rotate(45deg);flex:none;margin-right:6px}
+details.guide[open] summary::after{transform:rotate(-135deg)}
 .guide table{width:100%;border-collapse:collapse;margin:4px 0 16px;font-size:16px}
 .guide td{padding:10px 8px 10px 0;border-top:1px solid var(--line);vertical-align:top}
 .guide td:first-child{font-family:Literata,Georgia,serif;font-size:22px;font-weight:600;color:var(--blue);width:64px}
@@ -412,12 +412,13 @@ main.xwide{max-width:1280px}
 .tsec .ttab th{background:var(--blue-soft)}
 
 /* v27: единый стиль таблиц */
+.gpron td{white-space:nowrap}.gpron tr>*:first-child{width:1%;white-space:nowrap;font-size:14px;padding-right:8px!important}
 #lessons,details.lgrp{scroll-margin-top:90px}
-details.lgrp{border-top:1.5px solid var(--line)}
-details.lgrp>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:50px;font-weight:700;font-size:18px;color:var(--blue)}
+details.lgrp{margin:14px 0}
+details.lgrp>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:60px;padding:0 18px;background:var(--blue);color:#fff;font-weight:700;font-size:22px;border-radius:4px}
 details.lgrp>summary::-webkit-details-marker{display:none}
-details.lgrp>summary::after{content:"−";font-size:26px;line-height:1;padding:0 6px}
-details.lgrp:not([open])>summary::after{content:"+"}
+details.lgrp>summary::after{content:"";width:11px;height:11px;border-right:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-135deg);margin:6px 8px 0;flex:none}
+details.lgrp:not([open])>summary::after{transform:rotate(45deg);margin:0 8px 6px}
 .speak.tiny{display:inline-grid;width:30px;height:30px;vertical-align:middle;margin-left:4px;border-width:1px}
 .speak.tiny svg{width:15px;height:15px}
 .gtab-h td .speak.tiny{margin-left:6px}
@@ -425,8 +426,8 @@ details.lgrp:not([open])>summary::after{content:"+"}
 details.tfold{border-top:1.5px solid var(--line);margin-top:10px}
 details.tfold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px}
 details.tfold>summary::-webkit-details-marker{display:none}
-details.tfold>summary::after{content:"−";font-size:26px;color:var(--blue);line-height:1;padding:0 6px}
-details.tfold:not([open])>summary::after{content:"+"}
+details.tfold>summary::after{content:"";width:11px;height:11px;border-right:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);transform:rotate(-135deg);margin:6px 8px 0;flex:none}
+details.tfold:not([open])>summary::after{transform:rotate(45deg);margin:0 8px 6px}
 details.tfold>summary .th1{margin:12px 0}
 .dia button,.chip,.pill,.nav-link,.hero-btn,.exam-btn,.tvbtn,.btn,.primary,.gles,.dles,.opt,.ans,button.big{border-radius:4px!important}
 .hero-btns{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:60;background:rgba(255,255,255,.96);padding:8px 14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
@@ -943,7 +944,7 @@ function render(){
   return renderDone();
 }
 
-let LGOPEN = {}; try { LGOPEN = JSON.parse(localStorage.getItem("lls-lgopen") || "{}") || {}; } catch(e){ LGOPEN = {}; }
+let LGOPEN = {}; try { LGOPEN = JSON.parse(localStorage.getItem("lls-lgopen2") || "{}") || {}; } catch(e){ LGOPEN = {}; }
 function renderHome(){
   const hero = document.getElementById("hero");
   const due = ALL.filter(isDue).length;
@@ -969,13 +970,13 @@ function renderHome(){
     ${reviewBlock}
     <section class="lsec" id="lessons">
       <div class="lhead"><h2>Уроки</h2></div>
-      ${(() => { let out = ""; for (let i = 0; i < COURSE.length; i += 5) { const part = COURSE.slice(i, i+5), a = part[0].n, b = part[part.length-1].n, key = "g"+a, open = LGOPEN[key] !== false;
-        out += `<details class="lgrp" data-g="${key}" ${open ? "open" : ""}><summary><span>Уроки ${a}–${b}</span></summary><ul class="llist">${part.map(c => tile(c)).join("")}</ul></details>` + (testTileAfter(b) ? `<ul class="llist">${testTileAfter(b)}</ul>` : ""); } return out; })()}
+      ${(() => { let out = ""; for (let i = 0; i < COURSE.length; i += 20) { const part = COURSE.slice(i, i+20), a = part[0].n, b = part[part.length-1].n, key = "G"+a, open = LGOPEN[key] !== false;
+        out += `<details class="lgrp" data-g="${key}" ${open ? "open" : ""}><summary><span>Уроки ${a}–${b}</span></summary><ul class="llist">${part.map(c => tile(c) + testTileAfter(c.n)).join("")}</ul></details>`; } return out; })()}
     </section>
     <p class="note">${voiceOK() ? "Озвучка работает через румынский голос вашего браузера." : "Для озвучки нужен румынский голос в браузере или телефоне. Если его нет, ориентируйтесь на транскрипцию: ударная гласная отмечена чёрточкой сверху, например «а́»."} Прогресс сохраняется в этом браузере.</p>
   `;
   $app.querySelectorAll("[data-c]").forEach(b => b.onclick = () => { HIST.length = 0; openLesson(+b.dataset.c); });
-  $app.querySelectorAll("details.lgrp").forEach(d => d.addEventListener("toggle", () => { LGOPEN[d.dataset.g] = d.open; try { localStorage.setItem("lls-lgopen", JSON.stringify(LGOPEN)); } catch(e){} }));
+  $app.querySelectorAll("details.lgrp").forEach(d => d.addEventListener("toggle", () => { LGOPEN[d.dataset.g] = d.open; try { localStorage.setItem("lls-lgopen2", JSON.stringify(LGOPEN)); } catch(e){} }));
   const r = document.getElementById("rev"); if (r) r.onclick = () => { startReview(); window.scrollTo(0,0); };
   $app.querySelectorAll("[data-tv]").forEach(b => b.onclick = () => startTest(+b.dataset.t, +b.dataset.tv));
 }
@@ -1054,7 +1055,7 @@ function sayText(raw){
 const sayBtn = raw => { const t = sayText(raw); return t ? ` <button class="speak tiny" data-say="${esc(t)}" aria-label="Послушать">${SPK}</button>` : ""; };
 function grammarHTML(g, num){
   return `<h3 class="gtitle">${num ? `<span class="gnum">${num}</span> ` : ""}${esc(g.title)}</h3>` + g.blocks.map(([k,v,w]) => {
-    if (k==="tab") { const ul = ulTable(w) || ulRows(w); return `<div class="gwrap"><table class="gtab gtab-h"><thead><tr>${v.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${(ul || w.map(r => r.map(c => esc(c)))).map((r,ri) => { const pron = ulTable(w) !== null || w.every(x => PRON_IDX(String(x[0])) >= 0); return `<tr>${r.map((c,ci) => `<td>${c}${ci===0 && pron ? "" : sayBtn(w[ri][ci])}</td>`).join("")}</tr>`; }).join("")}</tbody></table></div>`; }
+    if (k==="tab") { const ul = ulTable(w) || ulRows(w); const pron0 = w.every(x => PRON_IDX(String(x[0])) >= 0); return `<div class="gwrap"><table class="gtab gtab-h${pron0 ? " gpron" : ""}"><thead><tr>${v.map((h,hi) => `<th>${esc(pron0 && hi===0 && h==="Местоимение" ? "Кто" : h)}</th>`).join("")}</tr></thead><tbody>${(ul || w.map(r => r.map(c => esc(c)))).map((r,ri) => { const pron = ulTable(w) !== null || w.every(x => PRON_IDX(String(x[0])) >= 0); return `<tr>${r.map((c,ci) => `<td>${c}${ci===0 && pron ? "" : sayBtn(w[ri][ci])}</td>`).join("")}</tr>`; }).join("")}</tbody></table></div>`; }
     if (k==="p") return `<p>${esc(v)}</p>`;
     if (k==="n") return `<p class="small">Обратите внимание: ${esc(v.charAt(0).toLowerCase()+v.slice(1))}</p>`;
     if (k==="t") return `<table class="gtab"><tbody>${v.map(r => `<tr><td>${esc(r[0])}${sayBtn(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</tbody></table>`;
