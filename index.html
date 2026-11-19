@@ -412,6 +412,9 @@ main.xwide{max-width:1280px}
 .tsec .ttab th{background:var(--blue-soft)}
 
 /* v27: единый стиль таблиц */
+a.wl{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(60,120,115,.55);cursor:pointer}
+a.wl:hover{background:var(--blue-soft)}
+#dlist li.wfocus{background:#fff4c2;transition:background .4s}
 .fbans{display:flex;align-items:center;justify-content:space-between;gap:12px}.fbans .speak{flex:none}
 .gpron td{white-space:nowrap}.gpron tr>*:first-child{width:1%;white-space:nowrap;font-size:14px;padding-right:8px!important}
 #lessons,details.lgrp{scroll-margin-top:90px}
@@ -608,8 +611,8 @@ function openLesson(n, from){ if (synth) try{synth.cancel();}catch(e){} if (from
 function goBack(cur){
   if (synth) try{synth.cancel();}catch(e){}
   const st = HIST.pop();
-  if (st && st.phase==="lesson") { S = {phase:"lesson", n:st.n}; render(); window.scrollTo(0,0); return; }
-  if (st && (st.phase==="tables" || st.phase==="gram")) { S = {phase:st.phase}; render(); const el = document.querySelector(`[data-trow="${st.rid}"]`); if (el) el.scrollIntoView({block:"center"}); else window.scrollTo(0,0); return; }
+  if (st && st.phase==="lesson") { S = {phase:"lesson", n:st.n}; render(); window.scrollTo(0, st.y || 0); return; }
+  if (st && (st.phase==="tables" || st.phase==="gram")) { S = {phase:st.phase}; render(); const el = st.rid ? document.querySelector(`[data-trow="${st.rid}"]`) : null; if (el) el.scrollIntoView({block:"center"}); else window.scrollTo(0, st.y || 0); return; }
   if (st && st.phase==="dict") { S = {phase:"dict"}; render(); const el = document.querySelector(`[data-wid="${st.wid}"]`); if (el) el.scrollIntoView({block:"center"}); else window.scrollTo(0,0); return; }
   S = null; render(); const t = document.querySelector(`[data-c="${cur}"]`); if (t) t.scrollIntoView({block:"center"});
 }
@@ -636,13 +639,13 @@ function dictList(){
 }
 function renderDict(){
   const total = COURSE.reduce((a,c) => a + c.topics.reduce((b,t) => b + t.words.length, 0), 0);
-  $app.innerHTML = `<div class="top"><button class="back back-arrow" id="back">← Все уроки</button><span class="count">${total} слов</span></div>
+  $app.innerHTML = `<div class="top"><button class="back back-arrow" id="back">${HIST.length ? "← Назад" : "← Все уроки"}</button><span class="count">${total} слов</span></div>
     <h1>Все слова</h1>
     <p class="lead">Все слова из всех уроков по алфавиту. Номер перед словом такой же, как в словаре урока. Нажмите на урок, чтобы открыть его.</p>
     <div class="dsearch"><input id="dq" type="search" placeholder="Поиск: по-румынски, по-русски или по номеру" autocomplete="off" value="${esc(DQ)}" aria-label="Поиск слова"><span id="dcount"></span></div>
     <p class="small">Глаголы стоят по алфавиту по самому глаголу, без частицы a: a mânca ищите на букву M. Искать можно и без румынских букв: manca найдёт mânca.</p>
     <div class="card"><div class="card-body vgroup"><ul class="vlist dlist" id="dlist">${dictList()}</ul><p id="dnone" class="small" hidden>Ничего не найдено.</p></div></div>`;
-  document.getElementById("back").onclick = goLessons;
+  document.getElementById("back").onclick = () => HIST.length ? goBack() : goLessons();
   $app.querySelectorAll("[data-say]").forEach(x => x.onclick = () => speak(x.dataset.say));
   $app.querySelectorAll("[data-les]").forEach(b => b.onclick = () => openLesson(+b.dataset.les, {phase:"dict", wid:b.dataset.wid}));
   const inp = document.getElementById("dq"), items = [...document.querySelectorAll("#dlist li")];
@@ -653,6 +656,139 @@ function renderDict(){
     document.getElementById("dnone").hidden = n > 0;
   };
   inp.addEventListener("input", apply); apply();
+}
+
+
+/* ---------- Переход со слова в «Все слова» ---------- */
+let WMAP = null;
+const IRREG = {
+ "fi":"sunt ești este e suntem sunteți fost eram erai era erați erau fiu fii fie fim fiți fiind",
+ "avea":"am ai are avem aveți au avut aveam aveai avea aveau aibă având",
+ "vrea":"vreau vrei vrea vrem vreți vor vrut voiam voia voiau vrând",
+ "lua":"iau iei ia luăm luați luat luam luai luau ia-l luând",
+ "bea":"beau bei bea bem beți băut beam beai beau bând",
+ "mânca":"mănânc mănânci mănâncă mâncăm mâncați mâncat mâncam mâncai mânca mâncau mănânce mâncând mâncasem mâncase",
+ "face":"fac faci face facem faceți făcut făceam făcea făceau facă făcând",
+ "merge":"merg mergi merge mergem mergeți mers mergeam mergea mergeau meargă mergând",
+ "vedea":"văd vezi vede vedem vedeți văzut vedeam vedea vedeau vadă văzând",
+ "ști":"știu știi știe știm știți știut știam știa știau știind",
+ "da":"dau dai dă dăm dați dat dădeam dădea dea dând",
+ "sta":"stau stai stă stăm stați stat stăteam stătea stea stând",
+ "putea":"pot poți poate putem puteți putut puteam putea puteau poată putând",
+ "spune":"spun spui spune spunem spuneți spus spunea spună",
+ "pune":"pun pui pune punem puneți pus punea pună",
+ "scrie":"scriu scrii scrie scriem scrieți scris scria scrie",
+ "veni":"vin vii vine venim veniți venit veneam venea vină venind",
+ "ține":"țin ții ține ținem țineți ținut",
+ "zice":"zic zici zice zicem ziceți zis",
+ "duce":"duc duci duce ducem duceți dus",
+ "trece":"trec treci trece trecem treceți trecut",
+ "cunoaște":"cunosc cunoști cunoaște cunoaștem cunoașteți cunoscut",
+ "durea":"doare dor durut",
+ "plăcea":"place plac plăcut plăcea",
+ "părea":"pare par părut",
+ "naște":"născut naște",
+ "dormi":"dorm dormi doarme dormim dormiți dormit doarmă",
+ "coborî":"cobor cobori coboară coborâm coborâți coborât",
+ "trimite":"trimit trimiți trimite trimitem trimiteți trimis",
+ "deschide":"deschid deschizi deschide deschidem deschideți deschis",
+ "închide":"închid închizi închide închidem închideți închis",
+ "înțelege":"înțeleg înțelegi înțelege înțelegem înțelegeți înțeles",
+ "citi":"citesc citești citește citim citiți citit citeam citea",
+ "spăla":"spăl speli spală spălăm spălați spălat",
+ "cânta":"cânt cânți cântă cântăm cântați cântat",
+ "aștepta":"aștept aștepți așteaptă așteptăm așteptați așteptat",
+ "purta":"port porți poartă purtăm purtați purtat",
+ "juca":"joc joci joacă jucăm jucați jucat",
+ "ruga":"rog rogi roagă rugăm rugați rugat",
+ "chema":"chem chemi cheamă chemăm chemați chemat",
+ "lăsa":"las lași lasă lăsăm lăsați lăsat"
+};
+function buildWMap(){
+  WMAP = {};
+  const add = (f, id) => { f = String(f).trim().toLowerCase().replace(/[!?.,]+$/,""); if (!f || /\s/.test(f) || f.length < 2 && f !== "a" && f !== "o" && f !== "e") return; if (!(f in WMAP)) WMAP[f] = id; };
+  const words = []; COURSE.forEach(c => c.topics.forEach(t => t.words.forEach(w => words.push(w))));
+  const INF = {};
+  const bare = s => s.replace(/^a (se |-și |-și)?/i, "").replace(/^a-și /i, "");
+  // 1. словарные формы и мн. число
+  words.forEach(w => {
+    w.ro.split(/,\s*/).forEach(x => add(bare(x), w.id));
+    if (w.pl && w.pl !== "-") w.pl.split(/,\s*/).forEach(x => add(x, w.id));
+    if (/^a (se )?\S+$/i.test(w.ro) && /vb/.test(w.pos||"")) { const inf = bare(w.ro).toLowerCase(); if (!INF[inf]) INF[inf] = w.id; }
+  });
+  // 2. неправильные глаголы
+  Object.keys(IRREG).forEach(inf => { const id = INF[inf]; if (id) IRREG[inf].split(" ").forEach(f => add(f, id)); });
+  // 3. формы из таблиц грамматики уроков
+  const WRD = /[A-Za-zĂÂÎȘȚăâîșț]+/g;
+  COURSE.forEach(c => c.grammar.forEach(g => g.blocks.forEach(bl => {
+    if (bl[0] !== "tab") return;
+    const head = bl[1], rows = bl[2];
+    head.forEach((hd, ci) => { const m = String(hd).match(/^a (?:se )?([a-zăâîșț]+)/i); const id = m && INF[m[1].toLowerCase()]; if (!id) return; rows.forEach(r => { const cell = String(r[ci]||""); if (/[а-яё]/i.test(cell)) return; const ws = cell.match(WRD) || []; if (ws.length) add(ws[ws.length-1], id); }); });
+    rows.forEach(r => { const m = String(r[0]).match(/^a (?:se )?([a-zăâîșț]+)$/i); const id = m && INF[m[1].toLowerCase()]; if (!id) return; r.slice(1).forEach(cell => { cell = String(cell); if (/[а-яё]/i.test(cell)) return; (cell.match(WRD) || []).forEach(x => { if (x.length > 2) add(x, id); }); }); });
+  })));
+  // 4. формы существительных с артиклем и падежи
+  words.forEach(w => {
+    const pos = w.pos || ""; if (!/subst/.test(pos) || /propriu/.test(pos)) return;
+    const sg = w.ro.split(/,\s*/)[0].toLowerCase(), pl = (w.pl && w.pl !== "-") ? w.pl.split(/,\s*/)[0].toLowerCase() : "";
+    if (/\s/.test(sg)) return;
+    const out = [];
+    if (/feminin/.test(pos)) {
+      if (/ie$/.test(sg)) out.push(sg.slice(0,-1)+"a"); else if (/ă$/.test(sg)) out.push(sg.slice(0,-1)+"a"); else if (/e$/.test(sg)) out.push(sg+"a"); else if (/a$/.test(sg)) out.push(sg+"ua");
+      if (pl) { out.push(pl+"le", pl+"lor"); if (/i$/.test(pl)) out.push(pl+"i"); else if (/e$/.test(pl)) out.push(pl.slice(0,-1)+"ei"); }
+    } else {
+      if (/e$/.test(sg)) out.push(sg+"le", sg+"lui"); else if (/[ău]$/.test(sg)) out.push(sg+"l", sg+"lui"); else out.push(sg+"ul", sg+"ului");
+      if (pl) { if (/i$/.test(pl)) out.push(pl+"i", pl+"lor"); else out.push(pl+"le", pl+"lor"); }
+    }
+    out.forEach(f => add(f, w.id));
+  });
+  // 5. формы правильных глаголов
+  Object.keys(INF).forEach(inf => {
+    const id = INF[inf]; let S, E = [];
+    if (/ea$/.test(inf)) { S = inf.slice(0,-2); E = ["","i","e","em","eți","ut","eam","eai","ea","eau","ând","ă"]; }
+    else if (/a$/.test(inf)) { S = inf.slice(0,-1); E = ["","i","ă","ăm","ați","ez","ezi","ează","eze","e","at","am","ai","au","ând","asem","ase","ază"]; }
+    else if (/e$/.test(inf)) { S = inf.slice(0,-1); E = ["","i","e","em","eți","ut","eam","eai","ea","eau","ând","ă"]; }
+    else if (/i$/.test(inf)) { S = inf.slice(0,-1); E = ["esc","ești","ește","im","iți","ească","it","eam","eai","ea","eau","ind","","i","e","ă"]; }
+    else if (/î$/.test(inf)) { S = inf.slice(0,-1); E = ["ăsc","ăști","ăște","âm","âți","ască","ât","am","ai","a","au","ând","","i","ă"]; }
+    else return;
+    if (S.length < 2) return;
+    E.forEach(e => add(S + e, id));
+  });
+}
+const WRX = /[A-Za-zĂÂÎȘȚăâîșțŞşŢţ]+/g;
+function linkWords(root){
+  if (!WMAP) buildWMap();
+  const els = root.querySelectorAll('[lang="ro"]');
+  els.forEach(el => {
+    if (el.closest(".opt, button, .ex-q, .gap, .tqbox, #fb, input, textarea, a.wl")) return;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = []; let n; while ((n = walker.nextNode())) { if (!n.parentElement.closest("button, a.wl, u")) nodes.push(n); }
+    nodes.forEach(node => {
+      const t = node.nodeValue; WRX.lastIndex = 0; let m, last = 0, frag = null;
+      while ((m = WRX.exec(t))) {
+        const w = m[0], s = m.index, e = s + w.length;
+        if (t[s-1] === "-" || t[e] === "-" ) continue;
+        const id = WMAP[w.toLowerCase()]; if (!id) continue;
+        if (!frag) frag = document.createDocumentFragment();
+        frag.appendChild(document.createTextNode(t.slice(last, s)));
+        const a = document.createElement("a"); a.className = "wl"; a.href = "#"; a.dataset.wl = id; a.textContent = w; frag.appendChild(a);
+        last = e;
+      }
+      if (frag) { frag.appendChild(document.createTextNode(t.slice(last))); node.parentNode.replaceChild(frag, node); }
+    });
+  });
+  root.querySelectorAll("a.wl").forEach(a => a.onclick = ev => { ev.preventDefault(); ev.stopPropagation(); openWord(a.dataset.wl); });
+}
+function openWord(id){
+  if (synth) try{synth.cancel();}catch(e){}
+  HIST.push({phase:S.phase, n:S.n, y:window.scrollY});
+  DQ = ""; S = {phase:"dict", focus:id}; render();
+}
+function focusWord(id){
+  const el = document.querySelector(`#dlist [data-wid="${id}"]`);
+  if (!el) { window.scrollTo(0,0); return; }
+  el.classList.add("wfocus"); el.scrollIntoView({block:"center"});
+  setTimeout(() => el.classList.remove("wfocus"), 2500);
+  S.focus = null;
 }
 
 /* ---------- Вся грамматика ---------- */
@@ -929,7 +1065,8 @@ function renderTest(){
 }
 
 /* ---------- Экраны ---------- */
-function render(){
+function render(){ _render(); if (S && (S.phase==="lesson" || S.phase==="gram" || S.phase==="tables")) linkWords($app); if (S && S.phase==="dict" && S.focus) focusWord(S.focus); }
+function _render(){
   const hero = document.getElementById("hero");
   hero.hidden = !!S; $app.classList.toggle("wide", !S); $app.classList.toggle("mid", !!S && S.phase==="gram"); $app.classList.toggle("xwide", !!S && S.phase==="tables");
   document.getElementById("topnav").hidden = !S;
