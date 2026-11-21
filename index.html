@@ -307,7 +307,7 @@ details.sec>summary{padding:12px 14px;min-height:54px}
 .tvbtn{border:1.5px solid var(--blue);background:#fff;color:var(--blue);border-radius:12px;min-height:48px;padding:6px 4px;font-family:inherit;font-weight:600;font-size:15px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .tvbtn small{font-weight:500;font-size:11.5px;color:var(--beige);margin-top:2px}
 .tvbtn:hover{background:var(--blue-soft)}
-.tsec{margin-top:18px}.tsec>summary h2.tpart{margin:0}.tsec-body{padding:0 12px 6px}
+.tpsec{margin-top:18px}.tpsec>summary h2.tpart{margin:0}.tsec-body{padding:0 12px 6px}
 .tqb .card-body{padding-left:52px}
 .bline{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;align-items:center;border:1px dashed var(--line);border-radius:10px;padding:8px;margin:10px 0 14px;background:#FAFAF7}
 .bph{color:var(--muted);font-size:14px}
@@ -317,6 +317,17 @@ details.sec>summary{padding:12px 14px;min-height:54px}
 .blab{font-size:13px;color:var(--muted)}.bnum{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700}
 .bopts{display:flex;flex-wrap:wrap;gap:8px}.bopt{flex:1 1 0;min-width:72px}.bopt.sel{border-color:var(--blue)!important;background:var(--blue-soft)!important;font-weight:700}
 .breset{margin-top:4px}
+.bles{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin:8px 0}
+.blesn{all:unset;box-sizing:border-box;cursor:pointer;height:44px;border:1px solid var(--line);border-radius:4px;display:grid;place-items:center;font-weight:600;background:#fff}
+.blesn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.blesn:focus-visible{outline:3px solid #9CC9C4}
+.bcnt{font-size:13px;font-weight:500;color:var(--muted);margin-left:8px}
+.blist{margin:6px 0 4px;padding-left:18px;font-size:15px}
+.bsel.sel{border-color:var(--blue)!important;background:var(--blue-soft)!important;font-weight:700}
+.bopts4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.bopts3{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:640px){.bopts4{grid-template-columns:repeat(4,1fr)}.bopts3{grid-template-columns:repeat(3,1fr)}}
+.fb.ok{color:#2E7D5B}.fb.bad{color:#B5452B}.fb{margin-top:12px}
+.baopt.ok{border-color:#2E7D5B!important;background:#E5F3EC!important}.baopt.bad{border-color:#B5452B!important;background:#FBE9E4!important}
 .tpart{margin:28px 0 10px}
 .tq{position:relative;margin-bottom:12px}
 .tq .card-body{padding:16px 16px 14px 52px}
@@ -463,7 +474,7 @@ h3.gtitle{font-size:19px;line-height:1.3}
 #topnav .nav-right{display:flex;gap:6px;width:100%;justify-content:flex-end}
 #topnav .nav-link{border-radius:4px!important;padding:7px 10px;font-size:14px;white-space:nowrap}
 #topnav .nav-home{font-size:13px;padding:6px 8px;color:var(--muted)!important;border-color:var(--line)!important;margin-right:auto}
-@media (max-width:520px){#topnav{padding:6px 6px}#topnav .nav-right{display:grid;grid-template-columns:0.8fr 1fr 1fr 1.25fr 1fr 1.05fr;gap:3px;overflow:visible}#topnav .nav-link{padding:5px 2px;font-size:11px;white-space:normal;line-height:1.15;min-height:38px;text-align:center}#topnav .nav-home{font-size:10px;margin-right:0}.glist th{white-space:normal}.glist .gles{font-size:12px;padding:2px 6px;min-height:26px}}
+@media (max-width:520px){#topnav{padding:6px 6px}#topnav .nav-right{display:grid;grid-template-columns:0.75fr 0.95fr 0.95fr 1.25fr 1fr 1.3fr 1fr;gap:3px;overflow:visible}#topnav .nav-link{padding:5px 1px;font-size:10px;white-space:normal;line-height:1.15;min-height:38px;text-align:center}#topnav .nav-home{font-size:10px;margin-right:0}.glist th{white-space:normal}.glist .gles{font-size:12px;padding:2px 6px;min-height:26px}}
 .nw{white-space:nowrap}
 .tbox{border:1.5px solid var(--line);background:var(--paper);overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0 14px}
 .glist,.ttab{width:100%;border-collapse:collapse;font-size:15px}
@@ -482,13 +493,14 @@ u{text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:
 .gtab-h td{padding:8px 10px!important;border-top:1px solid #e6e6e6}
 .gtab-h th{padding:8px 10px!important}
 @media (max-width:600px){.ttab{min-width:480px}.glist{min-width:0}.glist td.tles,.glist th:nth-child(3){width:96px}.glist th:nth-child(2),.glist td.glv{width:56px}.glist td,.glist th{padding:7px 6px}}
-.hero-btns{left:14px;right:14px;max-width:none;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.hero-btns{left:14px;right:14px;max-width:none;display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.hero-btns>*{grid-column:span 2}.hero-btns>*:nth-child(n+4){grid-column:span 3}
+@media (min-width:640px){.hero-btns{grid-template-columns:repeat(5,minmax(0,1fr))}.hero-btns>*,.hero-btns>*:nth-child(n+4){grid-column:auto}}
 .hero-btns .hero-btn,.hero-btns .exam-btn{border-radius:4px;padding:8px 6px;font-size:13px;line-height:1.2;white-space:normal;text-align:center;min-height:48px}
-@media (min-width:860px){.hero-btns{left:auto;width:600px}}
+@media (min-width:860px){.hero-btns{left:auto;width:720px}}
 </style>
 </head>
 <body>
-<nav id="topnav" hidden><span class="nav-right"><button id="navHome" class="nav-link nav-home">Главная</button><button id="navLessons" class="nav-link">Все уроки</button><button id="navWords" class="nav-link">Все слова</button><button id="navGram" class="nav-link">Грамматика</button><button id="navTables" class="nav-link">Таблицы</button><button id="navExam" class="nav-link nav-exam">Экзамен</button></span></nav>
+<nav id="topnav" hidden><span class="nav-right"><button id="navHome" class="nav-link nav-home">Главная</button><button id="navLessons" class="nav-link">Все уроки</button><button id="navWords" class="nav-link">Все слова</button><button id="navGram" class="nav-link">Грамматика</button><button id="navTables" class="nav-link">Таблицы</button><button id="navBuild" class="nav-link">Конструктор</button><button id="navExam" class="nav-link nav-exam">Экзамен</button></span></nav>
 <div id="hero"></div>
 <div class="band" aria-hidden="true"></div>
 <main id="app"></main>
@@ -593,7 +605,7 @@ function startReview(){
 }
 function pickType(w, avoid){
   if (w && w.gap) return "gap";
-  let types = ["ro2ru","ru2ro"];
+  let types = (S && S.dir && S.dir !== "mix") ? [S.dir] : ["ro2ru","ru2ro"];
   if (avoid && types.length>1) types = types.filter(t => t!==avoid);
   return types[Math.floor(Math.random()*types.length)];
 }
@@ -612,7 +624,7 @@ function options(w, field){
   for (const x of shuffle(poolFor(w))) { if (out.length>=4) break; if (!used.has(x[field])) { used.add(x[field]); out.push(x); } }
   return shuffle(out);
 }
-function exit(){ if (synth) try{synth.cancel();}catch(e){} const b = S && S.back; if (b) Object.keys(OPEN).forEach(k => { if (k.startsWith(b+"-")) delete OPEN[k]; }); S = b ? {phase:"lesson", n:b} : null; render(); window.scrollTo(0,0); }
+function exit(){ if (synth) try{synth.cancel();}catch(e){} if (S && S.back==="build") { openBuild(); return; } const b = S && S.back; if (b) Object.keys(OPEN).forEach(k => { if (k.startsWith(b+"-")) delete OPEN[k]; }); S = b ? {phase:"lesson", n:b} : null; render(); window.scrollTo(0,0); }
 
 
 
@@ -1067,7 +1079,7 @@ function renderTest(){
       if (q.part !== last) {
         if (last) html += `</div></details>`;
         last = q.part;
-        html += `<details class="sec tsec" open data-p="${q.part}"><summary><h2 class="tpart">${PART_NAME[q.part]}</h2><span class="chev" aria-hidden="true"></span></summary><div class="tsec-body">`;
+        html += `<details class="sec tpsec" open data-p="${q.part}"><summary><h2 class="tpart">${PART_NAME[q.part]}</h2><span class="chev" aria-hidden="true"></span></summary><div class="tsec-body">`;
         if (q.part===5) html += `<p class="small">Нажмите на слово — оно встанет в фразу следующим. Чтобы убрать слово, нажмите на него во фразе. «Обнулить» начинает заново.</p>`;
         if (q.part===3) html += `<div class="card"><div class="card-body"><p class="label">Прочитайте текст и ответьте на вопросы</p><p class="ttext" lang="ro">${esc(V.text)}</p></div></div>`;
         if (q.part===4) html += `<p class="small">Нажмите на значок, прослушайте фразу и выберите перевод. Текст фразы появится только в результатах.</p>`;
@@ -1142,6 +1154,143 @@ function renderTest(){
 }
 
 /* ---------- Экраны ---------- */
+/* ---------- Конструктор тестов ---------- */
+let BLD = {type:"words", lessons:[], n:10, dir:"mix"};
+const BTYPES = [["words","Слова"],["gram","Грамматика"],["phr","Фразы"],["aud","Аудирование"]];
+function openBuild(){ if (synth) try{synth.cancel();}catch(e){} S = {phase:"build"}; render(); window.scrollTo(0,0); }
+function bPool(type, lessons){
+  const Ls = COURSE.filter(c => lessons.includes(c.n));
+  if (type==="words") return Ls.flatMap(c => c.topics.flatMap(t => t.words));
+  if (type==="gram") return Ls.flatMap(c => c.grammar.flatMap(g => g.items));
+  return Ls.flatMap(c => c.phrases.map(p => Object.assign({les:c.n}, p)));
+}
+function renderBuild(){
+  const b = BLD, sel = b.lessons;
+  const pool = sel.length ? bPool(b.type, sel) : [];
+  const usable = b.type==="phr" ? pool.filter(p => bpTokens(p.ro).length >= 2 && bpTokens(p.ro).length <= 7).length : pool.length;
+  const btn = (grp, val, label, on) => `<button class="opt bsel${on ? " sel" : ""}" data-g="${grp}" data-v="${val}">${label}</button>`;
+  const les = COURSE.map(c => `<button class="blesn${sel.includes(c.n) ? " on" : ""}" data-les="${c.n}" title="${esc(c.title)}" aria-pressed="${sel.includes(c.n)}">${c.n}</button>`).join("");
+  $app.innerHTML = `<div class="top"><button class="back back-arrow" id="back">← Все уроки</button><span class="count">Самообучение</span></div>
+    <h1>Конструктор тестов</h1>
+    <p class="lead">Соберите свою тренировку: выберите, что повторять, уроки (до пяти) и сколько заданий.</p>
+    <div class="card"><div class="card-body">
+      <h3>1. Что тренируем</h3><div class="options bopts4">${BTYPES.map(([v,l]) => btn("type", v, l, b.type===v)).join("")}</div>
+      <p class="small">${b.type==="words" ? "Перевод слов из выбранных уроков." : b.type==="gram" ? "Упражнения по грамматике: вставить пропущенное слово." : b.type==="phr" ? "Фразы из уроков: выберите правильные формы слов и поставьте слова по порядку." : "Прослушайте фразу из урока и выберите перевод."}</p>
+      <h3>2. Уроки <span class="bcnt">выбрано ${sel.length} из 5</span></h3>
+      <div class="bles">${les}</div>
+      ${sel.length ? `<ul class="blist">${COURSE.filter(c => sel.includes(c.n)).map(c => `<li>Урок ${c.n}. ${esc(c.title)}</li>`).join("")}</ul>` : `<p class="small">Нажмите на номера уроков. Можно выбрать до пяти.</p>`}
+      <h3>3. Сколько заданий</h3><div class="options">${btn("n", 10, "10", b.n===10)}${btn("n", 20, "20", b.n===20)}</div>
+      ${b.type==="words" ? `<h3>4. Как переводить</h3><div class="options bopts3">${btn("dir","ro2ru","С румынского на русский",b.dir==="ro2ru")}${btn("dir","ru2ro","С русского на румынский",b.dir==="ru2ro")}${btn("dir","mix","Вперемешку",b.dir==="mix")}</div>` : ""}
+      ${sel.length ? `<p class="small">В выбранных уроках доступно заданий: ${usable}.${usable && usable < b.n ? ` Будет ${usable}, а не ${b.n}.` : ""}</p>` : ""}
+      <div class="actions"><button class="btn btn-ghost" id="breset">Сбросить</button><button class="btn btn-primary" id="bstart"${sel.length && usable ? "" : " disabled"}>Начать</button></div>
+    </div></div>`;
+  document.getElementById("back").onclick = goLessons;
+  $app.querySelectorAll(".bsel").forEach(x => x.onclick = () => { const g = x.dataset.g; b[g] = g==="n" ? +x.dataset.v : x.dataset.v; renderBuild(); });
+  $app.querySelectorAll(".blesn").forEach(x => x.onclick = () => { const n = +x.dataset.les, i = sel.indexOf(n);
+    if (i >= 0) sel.splice(i,1); else if (sel.length >= 5) { toast("Можно выбрать не больше пяти уроков. Снимите один из выбранных."); return; } else sel.push(n);
+    sel.sort((a,c) => a-c); const y = window.scrollY; renderBuild(); window.scrollTo(0,y); });
+  document.getElementById("breset").onclick = () => { BLD = {type:"words", lessons:[], n:10, dir:"mix"}; renderBuild(); };
+  document.getElementById("bstart").onclick = bStart;
+}
+function bStart(){
+  const b = BLD, pool = bPool(b.type, b.lessons);
+  if (b.type==="words" || b.type==="gram") {
+    const words = shuffle(pool).slice(0, b.n);
+    S = {mode:"lesson", words, phase:"ex", back:"build", dir:b.type==="words" ? b.dir : null};
+    buildQueue(); render(); window.scrollTo(0,0); return;
+  }
+  if (b.type==="phr") {
+    const items = shuffle(pool.filter(p => { const n = bpTokens(p.ro).length; return n >= 2 && n <= 7; })).slice(0, b.n).map(bpMake);
+    S = {phase:"bphr", items, qi:0, a:{sel:[], ord:[]}, checked:false, ok:0, bad:[]}; render(); window.scrollTo(0,0); return;
+  }
+  const items = shuffle(pool).slice(0, b.n).map(p => { const others = shuffle(COURSE.flatMap(c => c.phrases).filter(x => x.ru !== p.ru)).slice(0,2);
+    return {ro:p.ro, ru:p.ru, opts:shuffle([p.ru, ...others.map(x => x.ru)])}; });
+  S = {phase:"baud", items, qi:0, pick:null, ok:0, bad:[]}; render(); window.scrollTo(0,0);
+}
+/* фразы: разбор фразы урока на слова и подбор других форм того же слова */
+let INV = null, WBYID = null;
+function bpTokens(ro){ return ro.replace(/[.,!?…:;"«»„”]/g, " ").split(/\s+/).filter(Boolean); }
+let CORP = null;
+const BCLS = [["Глагол", "sunt ești este suntem sunteți e eram erai era erați erau"], ["Местоимение", "eu tu el ea noi voi ei ele"], ["Местоимение", "mă te se ne vă îl o îi le"], ["Местоимение", "îmi îți își ne vă le"],
+  ["Предлог", "în la din de pe cu pentru fără lângă după spre sub"], ["Местоимение", "meu mea mei mele"], ["Местоимение", "tău ta tăi tale"], ["Местоимение", "acest această acești aceste"], ["Слово", "un o niște"]];
+function bpInit(){
+  if (INV) return; if (!WMAP) buildWMap(); INV = {}; WBYID = {}; CORP = new Set();
+  const addT = s => String(s || "").toLowerCase().split(/[^a-zăâîșțşţé\-]+/).forEach(x => x && CORP.add(x));
+  COURSE.forEach(c => { c.topics.forEach(t => t.words.forEach(w => { WBYID[w.id] = w; addT(w.ro); addT(w.pl); }));
+    c.phrases.forEach(p => addT(p.ro)); c.grammar.forEach(g => { g.items.forEach(x => addT(x.ro)); JSON.stringify(g.blocks).split('"').forEach(addT); }); });
+  Object.entries(WMAP).forEach(([f, id]) => { if (CORP.has(f)) (INV[id] = INV[id] || []).push(f); });
+}
+function bpLab(w){ const p = (w && w.pos) || ""; return /vb/.test(p) ? "Глагол" : /subst/.test(p) ? "Существительное" : /adj/.test(p) ? "Прилагательное" : /pron/.test(p) ? "Местоимение" : /prep/.test(p) ? "Предлог" : /adv/.test(p) ? "Наречие" : /num/.test(p) ? "Число" : "Слово"; }
+function bpMake(p){
+  bpInit();
+  const toks = bpTokens(p.ro);
+  const chunks = toks.map((tok, i) => {
+    const low = tok.toLowerCase(); let id = WMAP[low];
+    if (!id && low.includes("-")) id = WMAP[low.split("-")[0]];
+    const w = id ? WBYID[id] : null;
+    const cls = BCLS.find(([l, s]) => s.split(" ").includes(low));
+    if (cls) { const correct = (i === 0 || low !== tok) && i === 0 ? low : tok; const alts = shuffle(cls[1].split(" ").filter(x => x !== low)).slice(0, 2);
+      const opts = shuffle([correct, ...alts]); return {lab: cls[0], opts, a: opts.indexOf(correct), t: cls[0]==="Глагол" ? 0 : 2}; }
+    let alts = [];
+    if (id && w && !/\s/.test(w.ro.replace(/^a (se )?/,"")) && !low.includes("-")) alts = shuffle((INV[id] || []).filter(f => f !== low && !/\s/.test(f) && f.length > 1)).slice(0, 2);
+    const correct = (i === 0 && !(w ? /^[A-ZĂÂÎȘȚ]/.test(w.ro) : !CORP.has(low) || false) ) ? low : tok;
+    const opts = shuffle([correct, ...alts.map(f => (correct[0] !== correct[0].toLowerCase() ? f[0].toUpperCase() + f.slice(1) : f))]);
+    return {lab: bpLab(w), opts, a: opts.indexOf(correct), t: /vb/.test((w && w.pos) || "") ? 0 : /subst/.test((w && w.pos) || "") ? 1 : 2};
+  });
+  const disp = chunks.map((c,k) => k).sort((x,y) => chunks[x].t - chunks[y].t || x - y);
+  return {ru:p.ru, ro:p.ro, chunks, disp, ans: chunks.map(c => c.opts[c.a]).join(" ")};
+}
+function isProper(tok, w){ if (w) return /^[A-ZĂÂÎȘȚ]/.test(w.ro); return /^[A-ZĂÂÎȘȚ]/.test(tok) && !/^(Eu|Tu|El|Ea|Noi|Voi|Ei|Ele|Ce|Cum|Unde|Când|Cât|Câte|Câți|Care|Cine|De|La|În|Din|Pe|Nu|Da|Azi|Mâine|Ieri|Acum|Aici|Acolo|Vreau|Am|Ai|Are|Avem|Aveți|Au|Sunt|Este|E)$/.test(tok); }
+function bpText(it, a){ return a.ord.map(k => a.sel[k] != null ? it.chunks[k].opts[a.sel[k]] : "…").join(" "); }
+function renderBphr(){
+  const it = S.items[S.qi], a = S.a, n = S.items.length, done = a.ord.length === it.chunks.length;
+  const right = S.checked && norm(bpText(it, a)) === norm(it.ans);
+  const line = a.ord.length ? a.ord.map((k,j) => `<button class="bchip" data-k="${k}" lang="ro"${S.checked ? " disabled" : ""}><b>${j+1}</b> ${esc(it.chunks[k].opts[a.sel[k]])}</button>`).join("") : `<span class="bph">Здесь появится фраза</span>`;
+  const groups = it.disp.map(k => { const c = it.chunks[k], pos = a.ord.indexOf(k);
+    return `<div class="bg"><div class="bgh"><span class="blab">${esc(c.lab)}</span>${pos >= 0 ? `<span class="bnum">${pos+1}</span>` : ""}</div>
+      <div class="bopts">${c.opts.map((o,j) => `<button class="opt bopt${a.sel[k]===j ? " sel" : ""}" data-k="${k}" data-o="${j}" lang="ro"${S.checked ? " disabled" : ""}>${esc(o)}</button>`).join("")}</div></div>`; }).join("");
+  $app.innerHTML = `<div class="top"><button class="back" id="back">К конструктору</button><span class="count">${S.qi+1} из ${n}</span></div>
+    <div class="card"><div class="card-body">
+      <p class="label">Соберите фразу: выберите правильную форму слова и нажимайте на слова по порядку</p>
+      <p class="tq-main tq-q">${esc(it.ru)}</p><div class="bline">${line}</div>${groups}
+      ${S.checked ? `<div class="fb ${right ? "ok" : "bad"}"><b>${right ? "Верно!" : "Не совсем."}</b> Правильно: <span lang="ro">${esc(it.ro)}</span> <button class="speak small" data-say="${esc(it.ro)}" aria-label="Послушать">${SPK}</button></div>` : ""}
+    </div></div>
+    <div class="actions">${S.checked ? `<button class="btn btn-primary" id="bnext">${S.qi === n-1 ? "Результат" : "Дальше"}</button>` : `<button class="btn btn-ghost" id="brs">Обнулить</button><button class="btn btn-primary" id="bchk"${done ? "" : " disabled"}>Проверить</button>`}</div>`;
+  document.getElementById("back").onclick = openBuild;
+  $app.querySelectorAll("[data-say]").forEach(x => x.onclick = () => speak(x.dataset.say));
+  if (!S.checked) {
+    $app.querySelectorAll(".bopt").forEach(x => x.onclick = () => { const k = +x.dataset.k; a.sel[k] = +x.dataset.o; if (!a.ord.includes(k)) a.ord.push(k); renderBphr(); });
+    $app.querySelectorAll(".bchip").forEach(x => x.onclick = () => { const k = +x.dataset.k; a.ord = a.ord.filter(y => y !== k); a.sel[k] = null; renderBphr(); });
+    document.getElementById("brs").onclick = () => { S.a = {sel:[], ord:[]}; renderBphr(); };
+    document.getElementById("bchk").onclick = () => { S.checked = true; if (norm(bpText(it, a)) === norm(it.ans)) S.ok++; else S.bad.push(it); speak(it.ro); renderBphr(); };
+  } else document.getElementById("bnext").onclick = () => { if (S.qi === n-1) { S.phase = "bres"; render(); return; } S.qi++; S.a = {sel:[], ord:[]}; S.checked = false; renderBphr(); window.scrollTo(0,0); };
+}
+function renderBaud(){
+  const it = S.items[S.qi], n = S.items.length, ch = S.pick !== null;
+  $app.innerHTML = `<div class="top"><button class="back" id="back">К конструктору</button><span class="count">${S.qi+1} из ${n}</span></div>
+    <div class="card"><div class="card-body">
+      <div class="tq-listen"><button class="speak" data-say="${esc(it.ro)}" aria-label="Прослушать фразу">${SPK}</button><span>Прослушайте фразу и выберите перевод</span></div>
+      <div class="options">${it.opts.map((o,j) => `<button class="opt baopt${ch ? (o===it.ru ? " ok" : j===S.pick ? " bad" : "") : ""}" data-o="${j}"${ch ? " disabled" : ""}>${esc(o)}</button>`).join("")}</div>
+      ${ch ? `<p class="small" lang="ro">${esc(it.ro)}</p>` : ""}
+    </div></div>
+    <div class="actions">${ch ? `<button class="btn btn-primary" id="bnext">${S.qi === n-1 ? "Результат" : "Дальше"}</button>` : ""}</div>`;
+  document.getElementById("back").onclick = openBuild;
+  $app.querySelectorAll("[data-say]").forEach(x => x.onclick = () => speak(x.dataset.say));
+  if (!ch) { setTimeout(() => speak(it.ro), 250); $app.querySelectorAll(".baopt").forEach(x => x.onclick = () => { S.pick = +x.dataset.o; if (it.opts[S.pick] === it.ru) S.ok++; else S.bad.push(it); renderBaud(); }); }
+  else document.getElementById("bnext").onclick = () => { if (S.qi === n-1) { S.phase = "bres"; render(); return; } S.qi++; S.pick = null; renderBaud(); window.scrollTo(0,0); };
+}
+function renderBres(){
+  const n = S.items.length;
+  $app.innerHTML = `<div class="card"><div class="card-body">
+      <p class="done-title">Тренировка закончена</p>
+      <p>Правильно: <b>${S.ok} из ${n}</b>.</p>
+      ${S.bad.length ? `<p class="label" style="margin-top:18px">Ошибки:</p><ul class="mist">${S.bad.map(x => `<li><span lang="ro">${esc(x.ro)}</span><span>${esc(x.ru)}</span></li>`).join("")}</ul>` : `<p class="label">Ошибок нет. Отлично!</p>`}
+    </div></div>
+    <div class="actions"><button class="btn btn-ghost" id="bagain">Ещё раз</button><button class="btn btn-primary" id="bback">К конструктору</button></div>`;
+  document.getElementById("bagain").onclick = bStart;
+  document.getElementById("bback").onclick = openBuild;
+}
+
 function render(){ { const f = document.getElementById("floatBack"); if (f) f.remove(); } _render(); if (S && S.phase==="dict" && HIST.length) showFloatBack(); if (S && (S.phase==="lesson" || S.phase==="gram" || S.phase==="tables")) linkWords($app); if (S && S.phase==="dict" && S.focus) focusWord(S.focus); }
 function _render(){
   const hero = document.getElementById("hero");
@@ -1154,6 +1303,10 @@ function _render(){
   if (S.phase==="dict") return renderDict();
   if (S.phase==="gram") return renderGram();
   if (S.phase==="tables") return renderTables();
+  if (S.phase==="build") return renderBuild();
+  if (S.phase==="bphr") return renderBphr();
+  if (S.phase==="baud") return renderBaud();
+  if (S.phase==="bres") return renderBres();
   if (S.phase==="intro") return renderIntro();
   if (S.phase==="ex") return renderEx();
   return renderDone();
@@ -1172,11 +1325,12 @@ function renderHome(){
       <figcaption>Румынский язык</figcaption>
     </figure>
     <div class="hero-in"><h1 class="hero-title">Learn<br>like a<br>star</h1></div>
-    <div class="hero-btns"><button class="hero-btn" id="heroWords">Все слова</button><button class="hero-btn" id="heroGram">Вся грамматика</button><button class="hero-btn" id="heroTables">Грамматика в таблицах</button><button class="exam-btn" id="heroExam">Экзамен в Молдове</button></div>`;
+    <div class="hero-btns"><button class="hero-btn" id="heroWords">Все слова</button><button class="hero-btn" id="heroGram">Вся грамматика</button><button class="hero-btn" id="heroTables">Грамматика в таблицах</button><button class="hero-btn" id="heroBuild">Конструктор тестов</button><button class="exam-btn" id="heroExam">Экзамен в Молдове</button></div>`;
   document.getElementById("heroExam").onclick = openExam;
   document.getElementById("heroWords").onclick = openDict;
   document.getElementById("heroGram").onclick = openGram;
   document.getElementById("heroTables").onclick = openTables;
+  document.getElementById("heroBuild").onclick = openBuild;
   $app.innerHTML = `
     ${started ? `<div class="stats">
       <div class="stat"><b>${st}</b><span>${plural(st,"день","дня","дней")} подряд</span></div>
@@ -1326,7 +1480,7 @@ function renderLesson(){
 }
 
 function topBar(count, pct){
-  return `<div class="top"><button class="back" id="back">${S.back ? "К уроку " + S.back : "К урокам"}</button><span class="count">${count}</span></div>
+  return `<div class="top"><button class="back" id="back">${S.back==="build" ? "К конструктору" : S.back ? "К уроку " + S.back : "К урокам"}</button><span class="count">${count}</span></div>
   <div class="steps"><i style="width:${pct}%"></i></div>`;
 }
 function wordBlock(w){
@@ -1493,9 +1647,10 @@ function renderDone(){
     </div></div>
     <div class="actions">
       ${bad.length ? `<button class="btn btn-ghost" id="rev">Повторить ошибки</button>` : ""}
-      <button class="btn btn-primary" id="home">${S.back ? "К уроку " + S.back : "К урокам"}</button>
+      ${S.back==="build" ? `<button class="btn btn-ghost" id="bagain2">Ещё раз</button>` : ""}<button class="btn btn-primary" id="home">${S.back==="build" ? "К конструктору" : S.back ? "К уроку " + S.back : "К урокам"}</button>
     </div>`;
   document.getElementById("home").onclick = exit;
+  const ba = document.getElementById("bagain2"); if (ba) ba.onclick = bStart;
   const r = document.getElementById("rev");
   if (r) r.onclick = () => { S = {mode:"review", words:bad, phase:"ex", back:S.back}; buildQueue(); render(); window.scrollTo(0,0); };
 }
@@ -1507,6 +1662,7 @@ document.getElementById("navExam").onclick = openExam;
 document.getElementById("navWords").onclick = openDict;
 document.getElementById("navGram").onclick = openGram;
 document.getElementById("navTables").onclick = openTables;
+document.getElementById("navBuild").onclick = openBuild;
 render();
 </script>
 </body>
