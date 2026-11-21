@@ -1179,9 +1179,9 @@ function renderBuild(){
       <h3>2. Уроки <span class="bcnt">выбрано ${sel.length} из 5</span></h3>
       <div class="bles">${les}</div>
       ${sel.length ? `<ul class="blist">${COURSE.filter(c => sel.includes(c.n)).map(c => `<li>Урок ${c.n}. ${esc(c.title)}</li>`).join("")}</ul>` : `<p class="small">Нажмите на номера уроков. Можно выбрать до пяти.</p>`}
-      <h3>3. Сколько заданий</h3><div class="options">${btn("n", 10, "10", b.n===10)}${btn("n", 20, "20", b.n===20)}</div>
+      <h3>3. Сколько заданий</h3><div class="options">${btn("n", 10, "10", b.n===10)}${btn("n", 20, "20", b.n===20)}${btn("n", 0, "Все", b.n===0)}</div>
       ${b.type==="words" ? `<h3>4. Как переводить</h3><div class="options bopts3">${btn("dir","ro2ru","С румынского на русский",b.dir==="ro2ru")}${btn("dir","ru2ro","С русского на румынский",b.dir==="ru2ro")}${btn("dir","mix","Вперемешку",b.dir==="mix")}</div>` : ""}
-      ${sel.length ? `<p class="small">В выбранных уроках доступно заданий: ${usable}.${usable && usable < b.n ? ` Будет ${usable}, а не ${b.n}.` : ""}</p>` : ""}
+      ${sel.length ? `<p class="small">В выбранных уроках доступно заданий: ${usable}.${usable && b.n && usable < b.n ? ` Будет ${usable}, а не ${b.n}.` : ""}${b.n===0 && usable ? ` Будут все ${usable}.` : ""}</p>` : ""}
       <div class="actions"><button class="btn btn-ghost" id="breset">Сбросить</button><button class="btn btn-primary" id="bstart"${sel.length && usable ? "" : " disabled"}>Начать</button></div>
     </div></div>`;
   document.getElementById("back").onclick = goLessons;
@@ -1195,15 +1195,15 @@ function renderBuild(){
 function bStart(){
   const b = BLD, pool = bPool(b.type, b.lessons);
   if (b.type==="words" || b.type==="gram") {
-    const words = shuffle(pool).slice(0, b.n);
+    const words = shuffle(pool).slice(0, b.n || undefined);
     S = {mode:"lesson", words, phase:"ex", back:"build", dir:b.type==="words" ? b.dir : null};
     buildQueue(); render(); window.scrollTo(0,0); return;
   }
   if (b.type==="phr") {
-    const items = shuffle(pool.filter(p => { const n = bpTokens(p.ro).length; return n >= 2 && n <= 7; })).slice(0, b.n).map(bpMake);
+    const items = shuffle(pool.filter(p => { const n = bpTokens(p.ro).length; return n >= 2 && n <= 7; })).slice(0, b.n || undefined).map(bpMake);
     S = {phase:"bphr", items, qi:0, a:{sel:[], ord:[]}, checked:false, ok:0, bad:[]}; render(); window.scrollTo(0,0); return;
   }
-  const items = shuffle(pool).slice(0, b.n).map(p => { const others = shuffle(COURSE.flatMap(c => c.phrases).filter(x => x.ru !== p.ru)).slice(0,2);
+  const items = shuffle(pool).slice(0, b.n || undefined).map(p => { const others = shuffle(COURSE.flatMap(c => c.phrases).filter(x => x.ru !== p.ru)).slice(0,2);
     return {ro:p.ro, ru:p.ru, opts:shuffle([p.ru, ...others.map(x => x.ru)])}; });
   S = {phase:"baud", items, qi:0, pick:null, ok:0, bad:[]}; render(); window.scrollTo(0,0);
 }
